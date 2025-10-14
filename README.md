@@ -25,6 +25,6 @@ Configurar el archivo application.properties con tus credenciales de SQL Server
 Ejecutar el proyecto desde la clase principal (SegurAppApplication.java)
 
 ## Autores
-**INddestable**
-**HannaGarcia11**
-**Cristian2403**
+- **INddestable**
+- **HannaGarcia11**
+- **Cristian2403**
