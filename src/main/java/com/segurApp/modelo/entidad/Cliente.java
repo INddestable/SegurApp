@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Clientes")
+
 public class Cliente {
     
     @Id
@@ -34,6 +35,8 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente_id")
     private List<Factura> facturas;
     
+    private String rol;
+    
     
     //constructor con parametros (revisar facturas)
     public Cliente(Integer documento, String nombre, String tipo_documento, Integer puntaje_crediticio, Integer edad, String telefono, String email, String password, List<PolizaCliente> polizas) {
@@ -47,6 +50,7 @@ public class Cliente {
         this.password = password;
         this.polizas = polizas;
         this.facturas = null;
+        this.rol = null;
     }
 
     //constructor vacio (si al fentanilo)
