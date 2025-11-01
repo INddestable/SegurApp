@@ -1,0 +1,150 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 1/11/2025, 8:35:08 a. m.
+    Author     : Dell
+*/
+
+:root{
+  --color-principal: #00796b;
+  --color-claro: #b2dfdb;
+  --color-oscuro: #004c40;
+  --gris-fondo: #f5f5f5;
+  --sombra: 0 2px 8px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family: 'Roboto', sans-serif;
+  display:flex;              
+  height:100vh;
+  background: var(--gris-fondo);
+}
+
+
+.sidebar{
+  width:220px;
+  background: var(--color-principal);
+  display:flex;
+  flex-direction:column;
+  padding-top:20px;
+}
+.sidebar ul{list-style:none;}
+.sidebar a{
+  display:block;
+  color:#fff;
+  padding:12px 20px;
+  text-decoration:none;
+  font-weight:500;
+}
+.sidebar a:hover,
+.sidebar a.active{
+  background: var(--color-oscuro);
+}
+
+
+.content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+}
+.top-bar{
+  background:#fff;
+  padding:15px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:var(--sombra);
+}
+.top-bar h1{font-size:1.5rem; color:var(--color-oscuro);}
+.top-bar a{
+  color:var(--color-principal);
+  font-weight:bold;
+  text-decoration:none;
+}
+
+
+.form-section,
+.table-section,
+.historial-section{
+  background:#fff;
+  margin:20px 25px;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:var(--sombra);
+}
+.form-section h2,
+.table-section h2,
+.historial-section h3{margin-bottom:15px;}
+
+
+fieldset{
+  border:1px solid #c4c4c4;
+  padding:15px;
+  margin-bottom:15px;
+}
+legend{
+  padding:0 5px;
+  font-weight:700;
+  color:var(--color-oscuro);
+}
+
+label{display:block; margin:8px 0 4px; font-weight:500;}
+input, select, textarea{
+  width:100%;
+  padding:8px 10px;
+  border:1px solid #aaa;
+  border-radius:4px;
+}
+textarea{resize:vertical;}
+
+
+button[type="submit"]{
+  background:var(--color-principal);
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:4px;
+  cursor:pointer;
+}
+button[type="submit"]:hover{background:var(--color-oscuro);}
+#cancelEdit{
+  margin-left:10px;
+  background:#999;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:4px;
+  cursor:pointer;
+}
+#cerrarHistorial{
+  margin-top:10px;
+  background:#555;
+  color:#fff;
+  border:none;
+  padding:8px 15px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:50px;
+  background:#00796b;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -2px 5px rgba(0,0,0,.2);
+}
+.bottom-nav a{
+  color:#fff;
+  font-size:.9rem;
+  font-weight:500;
+}
+.bottom-nav a:hover{background:var(--pri-osc);}
+

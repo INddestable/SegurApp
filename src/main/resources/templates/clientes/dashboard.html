@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - SeguriPlus</title>
+  <link rel="stylesheet" href="../style.usuarios/loginUsuarios" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+  <header>
+    <div class="header-left">
+      <svg width="40" height="40" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="#005f99"/>
+        <text x="50" y="60" text-anchor="middle" fill="white" font-size="40" font-family="Roboto" font-weight="bold">S+</text>
+      </svg>
+      <h2>SeguriPlus</h2>
+    </div>
+    <div class="header-right">
+      <span>Bienvenido, <strong>Usuario</strong></span>
+      <a href="#">Cerrar sesión</a>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/seguros.html">Gestión de Seguros</a></li>
+        <li><a href="clientes.html">Gestión de Clientes</a></li>
+        <li><a href="polizas.html">Gestión de Pólizas</a></li>
+        <li><a href="pagos.html">Gestión de Pagos</a></li>
+        <li><a href="informes.html">Informes y Estadísticas</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <h3>Gestión de Seguros</h3>
+    <button class="btn-primary"><a href="/seguros.html">Nuevo seguro</a></button>
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Aseguradora</th>
+          <th>Cobertura</th>
+          <th>Costo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Vida</td>
+          <td>SegurosXYZ</td>
+          <td>Total</td>
+          <td>$500/año</td>
+          <td>
+            <button class="btn-small">Ver</button>
+            <button class="btn-small">Editar</button>
+            <button class="btn-small">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer class="bottom-nav">
+    <a href="dashboard.html">Inicio</a>
+    <a href="ayuda.html">Ayuda</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="logout.html">Cerrar sesión</a>
+  </footer>
+</body>
+</html>

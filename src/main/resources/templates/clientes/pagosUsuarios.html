@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagar Póliza - SeguriPlus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.usuarios/pagosUsuarios.css" />
+</head>
+
+<body>
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="CompraSeguros.html">Tienda</a></li>
+        <li><a href="UsuariosPolizas.html">Mis pólizas</a></li>
+        <li><a href="pagoPolizas.html" class="active">Pagar póliza</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="ayuda.html">Ayuda</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+
+  <main class="content">
+    <header class="top-bar">
+      <h1>Pagar póliza</h1>
+      <a href="dashboard.html">Volver al Dashboard</a>
+    </header>
+
+
+    <section class="form-section">
+      <h2>Selecciona la póliza a pagar</h2>
+      <form id="pagoForm">
+        <label>Póliza</label>
+        <select name="poliza" id="selPoliza" required>
+          <option value="">Elija una póliza...</option>
+        </select>
+
+        <label>Monto a pagar ($)</label>
+        <input type="number" name="monto" id="monto" step="0.01" readonly />
+
+        <label>Fecha de pago</label>
+        <input type="date" name="fechaPago" required />
+
+        <label>Forma de pago</label>
+        <select name="formaPago" required>
+          <option>Tarjeta débito</option>
+          <option>Tarjeta crédito</option>
+          <option>Transferencia</option>
+        </select>
+
+        <button type="submit">Realizar pago</button>
+        <button type="button" id="btnComprobante" disabled>Descargar comprobante</button>
+      </form>
+    </section>
+
+
+    <section class="table-section">
+      <h2>Historial de pagos de la póliza</h2>
+      <table id="tblPagosPoliza">
+        <thead>
+          <tr>
+            <th># Pago</th>
+            <th>Fecha</th>
+            <th>Forma</th>
+            <th>Monto</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="bottom-nav">
+    <a href="dashboard.html">Inicio</a>
+    <a href="CompraSeguros.html">Tienda</a>
+    <a href="misPolizas.html">Mis pólizas</a>
+    <a href="pagoPolizas.html" class="active">Pagar</a>
+  </footer>
+
+  <script src="../js/pagosUsuarios.js"></script>
+</body>
+</html>

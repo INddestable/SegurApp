@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro - SeguriPlus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.administradores/registroAdministrador.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <svg width="60" height="60" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="#005f99"/>
+        <text x="50" y="60" text-anchor="middle" fill="white" font-size="40" font-family="Roboto" font-weight="bold"></text>
+      </svg>
+      <h1>SegurApp</h1>
+    </div>
+
+    <h2>Crea tu cuenta</h2>
+    <form id="registroForm">
+      <label>Nombre completo</label>
+      <input type="text" name="nombre" required/>
+
+      <label>Correo electrónico</label>
+      <input type="email" name="email" required/>
+
+      <label>Usuario</label>
+      <input type="text" name="usuario" required/>
+
+      <label>Contraseña</label>
+      <input type="password" name="password" required/>
+
+      <label>Repetir contraseña</label>
+      <input type="password" name="password2" required/>
+
+      <button type="submit">Registrarse</button>
+      <p class="link">¿Ya tienes cuenta? <a href="index.html">Inicia sesión aquí</a></p>
+    </form>
+  </div>
+
+  <script src="../js/registroAdministrador.js"></script>
+</body>
+</html>

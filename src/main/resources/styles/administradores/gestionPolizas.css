@@ -1,0 +1,110 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 1/11/2025, 9:23:28 a. m.
+    Author     : Dell
+*/
+
+:root{
+  --pri: #5a3a8a;
+  --pri-osc: #402a66;
+  --fondo: #f4f6f8;
+  --blanco: #ffffff;
+  --sombra: 0 2px 8px rgba(0,0,0,.15);
+}
+
+
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family: 'Roboto', sans-serif;
+  display:flex;               
+  height:100vh;
+  background: var(--fondo);
+  color:#333;
+}
+
+
+.sidebar{
+  width:220px;
+  background: var(--pri);
+  padding-top:20px;
+  flex-shrink:0;
+}
+.sidebar ul{list-style:none;}
+.sidebar a{
+  display:block;
+  color:#fff;
+  padding:12px 20px;
+  text-decoration:none;
+  font-weight:500;
+}
+.sidebar a:hover,
+.sidebar a.active{background: var(--pri-osc);}
+
+.content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+}
+.top-bar{
+  background:var(--blanco);
+  padding:15px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:var(--sombra);
+}
+.top-bar h1{font-size:1.5rem; color:var(--pri-osc);}
+.top-bar a{
+  color:var(--pri);
+  font-weight:bold;
+  text-decoration:none;
+}
+
+
+.form-section,
+.seguimiento-section,
+.cert-section,
+.table-section{
+  background:var(--blanco);
+  margin:20px 25px;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:var(--sombra);
+}
+.form-section h2,
+.seguimiento-section h2,
+.cert-section h2,
+.table-section h2{margin-bottom:15px;}
+
+
+label{display:block; margin:8px 0 4px; font-weight:500;}
+input, select, textarea{
+  width:100%;
+  padding:8px 10px;
+  border:1px solid #aaa;
+  border-radius:4px;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:50px;
+  background:var(--pri);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -2px 5px rgba(0,0,0,.2);
+}
+.bottom-nav a{
+  color:#fff;
+  font-size:.9rem;
+  font-weight:500;
+}
+.bottom-nav a:hover{background:var(--pri-osc);}
+

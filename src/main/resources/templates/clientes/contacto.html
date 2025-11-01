@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contacto - SeguriPlus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.usuario/contacto.css" />
+</head>
+
+<body>
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="seguros.html">Seguros</a></li>
+        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="polizas.html">Pólizas</a></li>
+        <li><a href="pagos.html">Pagos</a></li>
+        <li><a href="informes.html">Informes</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+
+  <main class="content">
+    <header class="top-bar">
+      <h1>Contacto</h1>
+      <a href="dashboard.html">Volver al Dashboard</a>
+    </header>
+
+    <section class="form-section">
+      <h2>Formulario de contacto</h2>
+      <form id="contactoForm">
+        <label>Nombre completo</label>
+        <input type="text" name="nombre" required />
+
+        <label>Correo electrónico</label>
+        <input type="email" name="email" required />
+
+        <label>Teléfono</label>
+        <input type="tel" name="telefono" />
+
+        <label>Asunto</label>
+        <input type="text" name="asunto" required />
+
+        <label>Mensaje</label>
+        <textarea name="mensaje" rows="5" required></textarea>
+
+        <button type="submit">Enviar mensaje</button>
+        <button type="button" id="btnDescargar">Descargar comprobante</button>
+      </form>
+    </section>
+
+    <section class="info-section">
+      <h2>Otros medios de contacto</h2>
+      <ul>
+        <li><strong>Teléfono:</strong> +54 9 381 555-1234</li>
+        <li><strong>Email:</strong> info@seguriplus.com</li>
+        <li><strong>Dirección:</strong> Av. Ejemplo 123, Tucumán, Argentina</li>
+        <li><strong>Horario:</strong> Lunes a viernes 8:00 - 18:00</li>
+      </ul>
+    </section>
+  </main>
+
+
+  <footer class="bottom-nav">
+    <a href="dashboard.html">Inicio</a>
+    <a href="ayuda.html">Ayuda</a>
+    <a href="contacto.html" class="active">Contacto</a>
+    <a href="logout.html">Cerrar sesión</a>
+  </footer>
+
+  <script src="../js/contacto.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 1/11/2025, 8:39:45 a. m.
+    Author     : Dell
+*/
+:root{
+  --pri: #005f99;
+  --pri-osc: #004070;
+  --fondo: #f4f6f8;
+  --blanco: #ffffff;
+  --sombra: 0 2px 8px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family: 'Roboto', sans-serif;
+  display:flex;               
+  min-height:100vh;
+  background: var(--fondo);
+  color:#333;
+}
+a{text-decoration:none;}
+
+
+.sidebar{
+  width:220px;
+  background: var(--pri);
+  padding-top:20px;
+  flex-shrink:0;
+}
+.sidebar ul{list-style:none;}
+.sidebar a{
+  display:block;
+  color:#fff;
+  padding:12px 20px;
+  font-weight:500;
+}
+.sidebar a:hover,
+.sidebar a.active{background: var(--pri-osc);}
+
+
+.content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding-bottom:60px; 
+}
+.top-bar{
+  background:var(--blanco);
+  padding:15px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:var(--sombra);
+}
+.top-bar h1{font-size:1.5rem; color:var(--pri-osc);}
+.top-bar a{
+  color:var(--pri);
+  font-weight:bold;
+}
+
+
+.form-section,
+.busqueda-section,
+.table-section{
+  background:var(--blanco);
+  margin:20px 25px;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:var(--sombra);
+}
+.form-section h2,
+.busqueda-section h2,
+.table-section h2{margin-bottom:15px;}
+
+
+label{display:block; margin:8px 0 4px; font-weight:500;}
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #aaa;
+  border-radius:4px;
+}
+textarea{resize:vertical;}
+.form-buttons{margin-top:20px;}
+button[type="submit"]{
+  background:var(--pri);
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:4px;
+  cursor:pointer;
+}
+button[type="submit"]:hover{background:var(--pri-osc);}
+#btnCancelEdit{
+  margin-left:10px;
+  background:#999;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+
+.fila-busqueda{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+  gap:15px;
+  align-items:end;
+}
+#btnLimpiar{background:#666; color:#fff;}
+
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+th, td{
+  padding:10px;
+  border:1px solid #ccc;
+  text-align:left;
+}
+th{background:#f5f5f5;}
+.btn-small{
+  border:none;
+  padding:5px 10px;
+  margin-right:5px;
+  border-radius:3px;
+  cursor:pointer;
+}
+.btn-ver{background:#17a2b8; color:#fff;}
+.btn-edit{background:#ffa500; color:#fff;}
+.btn-delete{background:#d9534f; color:#fff;}
+
+
+dialog{
+  border:none;
+  border-radius:8px;
+  padding:25px;
+  max-width:500px;
+  width:90%;
+}
+dialog::backdrop{background:rgba(0,0,0,.5);}
+#detalleContent{white-space:pre-wrap; margin:15px 0;}
+#btnCerrarModal{background:#666; color:#fff; border:none; padding:8px 16px; border-radius:4px; cursor:pointer;}
+
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:50px;
+  background:var(--pri);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -2px 5px rgba(0,0,0,.2);
+}
+.bottom-nav a{
+  color:#fff;
+  font-size:.9rem;
+  font-weight:500;
+}
+.bottom-nav a:hover{background:var(--pri-osc);}
+

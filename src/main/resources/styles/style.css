@@ -1,0 +1,154 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 1/11/2025, 9:14:09 a. m.
+    Author     : Dell
+*/
+:root{
+  --color-primario: #005f99;
+  --color-oscuro: #004070;
+  --color-claro: #f4f6f8;
+  --sombra: 0 2px 8px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family: 'Roboto', sans-serif;
+  background: var(--color-claro);
+  color:#333;
+}
+a{text-decoration:none;}
+
+
+.navbar{
+  background: var(--color-primario);
+  color:#fff;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo h1{font-size:1.5rem;}
+.nav-buttons{
+  display:flex;
+  gap:15px;
+}
+.btn-login, .btn-register{
+  padding:8px 16px;
+  border-radius:4px;
+  font-weight:500;
+}
+.btn-login{
+  background:transparent;
+  color:#fff;
+  border:1px solid #fff;
+}
+.btn-register{
+  background:#fff;
+  color:var(--color-primario);
+}
+.btn-login:hover{background:#fff; color:var(--color-primario);}
+.btn-register:hover{background:var(--color-claro);}
+
+
+.hero{
+  background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+  height:70vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+  padding:0 20px;
+}
+.hero-content{
+  background:rgba(0,0,0,.5);
+  padding:40px;
+  border-radius:8px;
+}
+.hero h2{font-size:2.5rem; margin-bottom:15px;}
+.hero p{font-size:1.2rem; margin-bottom:25px;}
+.btn-primary{
+  background:var(--color-primario);
+  color:#fff;
+  padding:12px 24px;
+  border-radius:4px;
+  font-weight:bold;
+}
+.btn-primary:hover{background:var(--color-oscuro);}
+
+
+.mvv{
+  padding:60px 20px;
+  background:#fff;
+}
+.mvv .container{
+  max-width:1000px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  gap:30px;
+}
+.mvv-item h3{color:var(--color-primario); margin-bottom:10px;}
+.mvv-item ul{list-style-position:inside; margin-top:10px;}
+
+
+.seguros{
+  padding:60px 20px;
+  background:var(--color-claro);
+}
+.seguros .container{
+  max-width:1200px;
+  margin:auto;
+}
+.seguros h2{
+  text-align:center;
+  margin-bottom:40px;
+  color:var(--color-primario);
+}
+.seguros-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  gap:30px;
+}
+.seguro-card{
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:var(--sombra);
+  transition:transform .3s;
+}
+.seguro-card:hover{transform:translateY(-5px);}
+.seguro-card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+.seguro-card h3{
+  padding:15px;
+  color:var(--color-primario);
+}
+.seguro-card p{
+  padding:0 15px 15px;
+  font-size:0.95rem;
+}
+
+
+.footer{
+  background:#222;
+  color:#ccc;
+  text-align:center;
+  padding:20px 10px;
+  font-size:0.9rem;
+}
+.footer p{margin:5px 0;}
+

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Seguros - SeguriPlus</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.administradores/registroSeguros.css" />
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="seguros.html" class="active">Seguros</a></li>
+        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="polizas.html">Pólizas</a></li>
+        <li><a href="pagos.html">Pagos</a></li>
+        <li><a href="informes.html">Informes</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+
+  <main class="content">
+    <header class="top-bar">
+      <h1>Gestión de Seguros</h1>
+      <a href="dashboard.html">Volver al Dashboard</a>
+    </header>
+
+
+    <section class="form-section">
+      <h2 id="tituloForm">Registrar Nuevo Seguro</h2>
+      <form id="seguroForm">
+        <input type="hidden" name="id" />
+
+        <label>Tipo de seguro</label>
+        <input type="text" name="tipo" list="tiposSeguro" placeholder="Ej: Vida, Auto, Hogar" required />
+        <datalist id="tiposSeguro">
+          <option>Vida</option>
+          <option>Automóvil</option>
+          <option>Hogar</option>
+          <option>Salud</option>
+        </datalist>
+
+        <label>Aseguradora</label>
+        <input type="text" name="aseguradora" placeholder="Nombre de la aseguradora" required />
+
+        <label>Plan / Producto</label>
+        <input type="text" name="plan" placeholder="Ej: Plan Oro, Básico, etc." required />
+
+        <label>Cobertura</label>
+        <textarea name="cobertura" rows="3" placeholder="Describa la cobertura principal" required></textarea>
+
+        <label>Beneficios</label>
+        <textarea name="beneficios" rows="3" placeholder="Beneficios adicionales que incluye"></textarea>
+
+        <label>Exclusiones</label>
+        <textarea name="exclusiones" rows="3" placeholder="Situaciones o bienes NO cubiertos"></textarea>
+
+        <label>Condiciones</label>
+        <textarea name="condiciones" rows="3" placeholder="Condiciones de contratación y uso"></textarea>
+
+        <label>Costo anual ($)</label>
+        <input type="number" name="costo" step="0.01" min="0" required />
+
+        <label>Duración (años)</label>
+        <input type="number" name="duracion" min="1" value="1" required />
+
+        <div class="form-buttons">
+          <button type="submit">Guardar Seguro</button>
+          <button type="button" id="btnCancelEdit" style="display:none;">Cancelar edición</button>
+        </div>
+      </form>
+    </section>
+
+
+    <section class="busqueda-section">
+      <h2>Búsqueda avanzada</h2>
+      <form id="busquedaForm">
+        <div class="fila-busqueda">
+          <input type="text" name="bTipo" placeholder="Tipo de seguro" />
+          <input type="text" name="bCobertura" placeholder="Cobertura" />
+          <input type="number" name="bCostoMin" placeholder="Costo mínimo" step="0.01" />
+          <input type="number" name="bCostoMax" placeholder="Costo máximo" step="0.01" />
+          <input type="text" name="bAseguradora" placeholder="Aseguradora" />
+          <button type="submit">Buscar</button>
+          <button type="button" id="btnLimpiar">Limpiar</button>
+        </div>
+      </form>
+    </section>
+
+
+    <section class="table-section">
+      <h2>Listado de seguros y planes</h2>
+      <table id="tblSeguros">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Aseguradora</th>
+            <th>Plan</th>
+            <th>Cobertura</th>
+            <th>Costo</th>
+            <th>Duración</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+
+    <dialog id="modalDetalle">
+      <h2>Detalle del seguro</h2>
+      <div id="detalleContent"></div>
+      <button id="btnCerrarModal">Cerrar</button>
+    </dialog>
+  </main>
+
+
+  <footer class="bottom-nav">
+    <a href="dashboard.html">Inicio</a>
+    <a href="ayuda.html">Ayuda</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="logout.html">Cerrar sesión</a>
+  </footer>
+
+
+   <script src="../js/registroSeguros.js"></script> 
+</body>
+</html>
