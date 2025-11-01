@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SeguriPlus - Login</title>
-  <link rel="stylesheet" href="../../static/administradores/loginAdministrador.css" />
+  <link rel="stylesheet" th:href="@{/css/administradores/loginAdministrador.css}" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body class="login-body">
@@ -21,7 +21,9 @@
       <input type="text" placeholder="Usuario" required />
       <input type="password" placeholder="Contraseña" required />
       <button type="submit"><a href="dashboard.html" class="btn-login">Ingresar</a></button>
-      <button type="submit"><a href="index.html" class="btn-login">Login Usuarios</a></button>
+      
+        <a th:href="@{../clientes/loginUsuarios}"><button type="button">   Ingreso Usuarios   </button></a>
+        <a th:href="@{../}"><button type="button" >                                Regresar al Inicio         </button></a>   
     </form>
   </div>
 </body>

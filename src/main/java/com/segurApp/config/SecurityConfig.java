@@ -15,33 +15,41 @@ public class SecurityConfig {
 
         http
             .authorizeHttpRequests(auth -> auth
-                // recursos públicos
-                .requestMatchers("/", "/index",
+                .requestMatchers("/",
+                                 "/index",
+                                 "/index.html",
+                                 "/style.css",
                                  "/clientes/loginUsuarios",
-                                 "/clientes/registroUsuarios",
+                                 "/clientes/registroUsuario", // primero esto
                                  "/administradores/loginAdministrador",
-                                 "/css/**","/style.css", "/js/**", "/images/**", "/webjars/**").permitAll()
-                // rutas por rol (asegúrate de que tus roles sean ROLE_CLIENTE y ROLE_ADMIN)
+                                 "/images/**",
+                                 "/webjars/**",
+                                 "/css/**",
+                                 "/administrador/**",
+                                 "/cliente/**"
+                ).permitAll()
+
+                // luego las rutas protegidas
                 .requestMatchers("/clientes/**").hasRole("CLIENTE")
                 .requestMatchers("/administradores/**").hasRole("ADMIN")
+
                 // resto requiere auth
                 .anyRequest().authenticated()
             )
+
+                
             .formLogin(form -> form
-                // GET -> mostrás el formulario
                 .loginPage("/clientes/loginUsuarios")
-                // POST -> url que procesa credenciales (configurada abajo)
                 .loginProcessingUrl("/perform_login")
-                // manejador para redirigir según rol
                 .successHandler(successHandler)
                 .permitAll()
             )
+                
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/index")
                 .permitAll()
             )
-            // durante pruebas puedes desactivar CSRF; en producción no lo dejes así
             .csrf(csrf -> csrf.disable());
 
         return http.build();

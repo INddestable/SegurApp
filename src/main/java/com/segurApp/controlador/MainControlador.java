@@ -16,9 +16,9 @@ public class MainControlador {
         return "clientes/loginUsuarios"; // templates/clientes/loginUsuarios.html
     }
 
-    @GetMapping("/clientes/registroUsuarios")
+    @GetMapping("/clientes/registroUsuario")
     public String registroCliente() {
-        return "clientes/registroUsuarios"; // templates/clientes/registroUsuarios.html
+        return "clientes/registroUsuario"; // templates/clientes/registroUsuario.html
     }
 
     @GetMapping("/administradores/loginAdministrador")
