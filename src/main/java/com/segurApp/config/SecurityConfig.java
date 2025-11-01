@@ -20,7 +20,7 @@ public class SecurityConfig {
                                  "/clientes/loginUsuarios",
                                  "/clientes/registroUsuarios",
                                  "/administradores/loginAdministrador",
-                                 "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                                 "/css/**","/style.css", "/js/**", "/images/**", "/webjars/**").permitAll()
                 // rutas por rol (asegúrate de que tus roles sean ROLE_CLIENTE y ROLE_ADMIN)
                 .requestMatchers("/clientes/**").hasRole("CLIENTE")
                 .requestMatchers("/administradores/**").hasRole("ADMIN")
