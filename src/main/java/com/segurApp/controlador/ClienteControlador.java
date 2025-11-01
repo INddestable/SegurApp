@@ -11,24 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("/clientes")
 public class ClienteControlador {
-    
-    @Autowired
-    private ClienteServicio clienteServ;
-    
-    @GetMapping("/nuevo")
-    public String mostrarFormulario(Model model) {
-        model.addAttribute("cliente", new Cliente());
-        return "clientes/formulario";
-    }
-    
-    @PostMapping("/guardar")
-    public String guardar(@ModelAttribute Cliente cliente) {
-        clienteServ.guardar(cliente);
-        return "redirect:/clientes";
-    }
-    
     
 }
