@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class SeguridadConfig {
+public class SeguridadConfig {/*
     private final ClienteServicio clienteServicio;
     
     public SeguridadConfig(ClienteServicio userService) {
@@ -81,5 +81,5 @@ public class SeguridadConfig {
             AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-    
+ */   
 }
