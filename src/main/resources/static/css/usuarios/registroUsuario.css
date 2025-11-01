@@ -58,26 +58,23 @@ button[type="submit"]{
   cursor:pointer;
 }
 
+button[type="button"]{
+  width:100%;
+  background:var(--color-primario);
+  color:#fff;
+  padding:12px;
+  border:none;
+  border-radius:4px;
+  font-weight:bold;
+  margin-top:20px;
+  cursor:pointer;
+}
+
 button[type="submit"]:hover{background:var(--color-oscuro);}
 .link{margin-top:15px; font-size:0.9rem;}
 .link a{color:var(--color-primario);}
 
-.login-form button {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.login-form button {
-  background-color: #005f99;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.login-form button:hover {
-  background-color: #004070;
-}
+button[type="button"]:hover{background:var(--color-oscuro);}
+.link{margin-top:15px; font-size:0.9rem;}
+.link a{color:var(--color-primario);}
 
