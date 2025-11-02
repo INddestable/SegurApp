@@ -4,10 +4,13 @@
  */
 package com.segurApp.controlador;
 
+import org.springframework.stereotype.Controller;
+
 /**
  *
  * @author User
  */
+@Controller
 public class FacturaControlador {
     
 }
