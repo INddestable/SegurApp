@@ -27,16 +27,17 @@ public class ClienteServicio {
         public String password;
         public String rol;
 
-        public ClienteRegistro(Integer documento, String nombre, String tipo_documento, Integer edad, String telefono, String email, String password) {
-            this.documento = documento;
-            this.nombre = nombre;
-            this.tipo_documento = tipo_documento;
-            this.edad = edad;
-            this.telefono = telefono;
-            this.email = email;
-            this.password = password;
-            this.rol = "ROL_USER";
-        }
+    //CONSTRUCTOR
+    public ClienteRegistro(Integer documento, String nombre, String tipo_documento, Integer edad, String telefono, String email, String password) {
+        this.documento = documento;
+        this.nombre = nombre;
+        this.tipo_documento = tipo_documento;
+        this.edad = edad;
+        this.telefono = telefono;
+        this.email = email;
+        this.password = password;
+        this.rol = "ROL_USER";
+    }
         
         
     }//clase

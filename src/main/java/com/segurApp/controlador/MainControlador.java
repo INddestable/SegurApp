@@ -1,3 +1,4 @@
+
 package com.segurApp.controlador;
 
 import org.springframework.stereotype.Controller;
@@ -66,7 +67,7 @@ public class MainControlador {
         return "administradores/gestionClientes";
     }
     
-    @GetMapping("/administradores/gstionPolizas")
+    @GetMapping("/administradores/gestionPolizas")
     public String gestionPolizas(){
         return "administradores/gestionPolizas";
     }

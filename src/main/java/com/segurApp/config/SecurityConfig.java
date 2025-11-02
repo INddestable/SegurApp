@@ -36,14 +36,14 @@ public class SecurityConfig {
                                  "/administradores/registroSeguros",
                                  "/images/**",
                                  "/webjars/**",
-                                 "/css/**",
+                                 "/css/**",//Importa todo lo de la carpeta static/css
                                  "/administrador/**",
                                  "/cliente/**",
-                                 "/js/**"
+                                 "/js/**" //Importa todo lo de la carpeta static/js
                 ).permitAll()
 
                 // luego las rutas protegidas
-                .requestMatchers("/clientes/**").hasRole("CLIENTE")
+                .requestMatchers("/clientes/**").hasRole("USER")
                 .requestMatchers("/administradores/**").hasRole("ADMIN")
 
                 // resto requiere auth

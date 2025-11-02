@@ -25,11 +25,11 @@
   <aside class="sidebar">
     <nav>
       <ul>
-        <li><a href="/seguros.html">Gestión de Seguros</a></li>
-        <li><a href="clientes.html">Gestión de Clientes</a></li>
-        <li><a href="polizas.html">Gestión de Pólizas</a></li>
-        <li><a href="pagos.html">Gestión de Pagos</a></li>
-        <li><a href="informes.html">Informes y Estadísticas</a></li>
+        <li><a th:href="@{registroSeguros}">Gestión de Seguros</a></li>
+        <li><a th:href="@{clientes}">Gestión de Clientes</a></li>
+        <li><a th:href="@{polizas}">Gestión de Pólizas</a></li>
+        <li><a th:href="@{pagos}">Gestión de Pagos</a></li>
+        <li><a th:href="@{informes}">Informes y Estadísticas</a></li>
       </ul>
     </nav>
   </aside>
@@ -64,10 +64,10 @@
   </main>
 
   <footer class="bottom-nav">
-    <a href="dashboard.html">Inicio</a>
-    <a href="ayuda.html">Ayuda</a>
-    <a href="contacto.html">Contacto</a>
-    <a href="logout.html">Cerrar sesión</a>
+    <a th:href="@{dashboard.html}">Inicio</a>
+    <a th:href="@{ayuda.html}">Ayuda</a>
+    <a th:href="@{contacto.html}">Contacto</a>
+    <a th:href="@{logout.html}">Cerrar sesión</a>
   </footer>
 </body>
 </html>
