@@ -6,7 +6,7 @@
   <title>Informes - SeguriPlus</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/administradores/informes.css"/>
+  <link rel="stylesheet" th:href="@{/css/administradores/informes.css}/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -136,6 +136,6 @@
     <a href="logout.html">Cerrar sesión</a>
   </footer>
 
-  <script src="../js/informes.js"></script>
+  <script th:src="@{/js/informes.js}"></script>
 </body>
 </html>

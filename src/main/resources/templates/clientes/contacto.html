@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contacto - SeguriPlus</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/usuarios/contacto.css" />
+  <link rel="stylesheet" th:href="@{/css/usuarios/contacto.css}"/>
 </head>
 
 <body>
@@ -71,6 +71,6 @@
     <a href="logout.html">Cerrar sesión</a>
   </footer>
 
-  <script src="../js/contacto.js"></script>
+  <script th:src="@{/js/contacto.js}"></script>
 </body>
 </html>

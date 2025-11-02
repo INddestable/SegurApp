@@ -7,7 +7,7 @@
 
   <!-- Fuente + estilos propios -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/administradores/gestionClientes.css" />
+  <link rel="stylesheet" th:href="@{/css/administradores/gestionClientes.css} />
 </head>
 
 <body>
@@ -125,6 +125,6 @@
     <a href="logout.html">Cerrar sesión</a>
   </footer>
 
-  <script src="../js/gestionClientes"></script>
+  <script th:src="@{/js/gestionClientes.js}"></script>
 </body>
 </html>

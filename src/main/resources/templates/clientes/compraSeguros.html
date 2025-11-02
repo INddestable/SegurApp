@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tienda - SeguriPlus</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/usuarios/CompraSeguros.css" />
+  <link rel="stylesheet" th:href="@{/css/usuarios/compraSeguros.css}" />
 </head>
 
 <body>
@@ -67,6 +67,6 @@
     <a href="pagarPoliza.html">Pagar</a>
   </footer>
 
-  <script src="../js/compraSeguros.js"></script>
+  <script th:src="@{/js/compraSeguros.js}"></script>
 </body>
 </html>

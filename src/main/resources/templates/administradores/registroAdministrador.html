@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registro - SeguriPlus</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/administradores/registroAdministrador.css" />
+  <link rel="stylesheet" th:href="@{/css/administradores/registroAdministrador.css}"/>
 </head>
 
 <body>
@@ -40,6 +40,6 @@
     </form>
   </div>
 
-  <script src="../js/registroAdministrador.js"></script>
+  <script th:src="@{/js/registroAdministrador.js}"></script>
 </body>
 </html>

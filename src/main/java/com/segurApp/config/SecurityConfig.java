@@ -21,12 +21,25 @@ public class SecurityConfig {
                                  "/style.css",
                                  "/clientes/loginUsuarios",
                                  "/clientes/registroUsuario", // primero esto
+                                 "/clientes/ayuda",
+                                 "/clientes/dashboard",
+                                 "/clientes/compraSeguros",
+                                 "/clientes/contacto",
+                                 "/clientes/pagosUsuarios",
+                                 "/clientes/polizasUsuarios",
                                  "/administradores/loginAdministrador",
+                                 "/administradores/dashboard",
+                                 "/administradores/gestionClientes",
+                                 "/administradores/gestionPolizas",
+                                 "/administradores/informes",
+                                 "/administradores/registroAdministrador",
+                                 "/administradores/registroSeguros",
                                  "/images/**",
                                  "/webjars/**",
                                  "/css/**",
                                  "/administrador/**",
-                                 "/cliente/**"
+                                 "/cliente/**",
+                                 "/js/**"
                 ).permitAll()
 
                 // luego las rutas protegidas
