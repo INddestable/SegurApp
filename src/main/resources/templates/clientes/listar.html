@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmnls:th="http://www.thymealeaf.org">
+    <head>
+        <title>Almacén Don Chucho</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+    <body>
+        <div>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/}">Inicio</a></li>
+                    <li><a th:href="@{/clientes/registrar}">Registrar</a></li>
+                    <li><a th:href="@{/clientes/}">Listado de Clientes</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <h3>Clientes Almacenados</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Documento</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Tipo Documento</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contraseña</th>
+                        <!-- Agregar las columnas para los botones editar y eliminar -->
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cli:${clientes}">
+                        <th scope="row" th:text="${cli.documento}"></th>
+                        <td th:text="${cli.nombre}"></td>
+                        <td th:text="${cli.tipo_documento}"></td>
+                        <td th:text="${cli.edad}"></td>
+                        <td th:text="${cli.telefono}"></td>
+                        <td th:text="${cli.email}"></td>
+                        <td th:text="${cli.password}"></td>
+                        <td><a title="Editar Registro"></a></td>
+                        <td><a title="Eliminar Registro"></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
+

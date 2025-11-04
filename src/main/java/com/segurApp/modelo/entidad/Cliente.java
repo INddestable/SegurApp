@@ -39,18 +39,18 @@ public class Cliente {
     
     
     //constructor con parametros (revisar facturas)
-    public Cliente(Integer documento, String nombre, String tipo_documento, Integer puntaje_crediticio, Integer edad, String telefono, String email, String password, List<PolizaCliente> polizas) {
+    public Cliente(Integer documento, String nombre, String tipo_documento, Integer edad, String telefono, String email, String password ) {
         this.documento = documento;
         this.nombre = nombre;
         this.tipo_documento = tipo_documento;
-        this.puntaje_crediticio = puntaje_crediticio;
+        this.puntaje_crediticio = null;
         this.edad = edad;
         this.telefono = telefono;
         this.email = email;
         this.password = password;
-        this.polizas = polizas;
+        this.polizas = null;
         this.facturas = null;
-        this.rol = null;
+        this.rol = "ROLE_CLIENTE";
     }
 
     //constructor vacio (si al fentanilo)

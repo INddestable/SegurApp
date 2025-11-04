@@ -33,7 +33,7 @@ public class RolesSuccessHandler implements AuthenticationSuccessHandler {
         }
 
         if (isCliente) {
-            response.sendRedirect("/clientes/home"); // Ajusta la ruta real
+            response.sendRedirect("/clientes/dashboard"); // Ajusta la ruta real
             return;
         }
 

@@ -4,6 +4,7 @@ package com.segurApp.modelo.servicio;
 import com.segurApp.modelo.entidad.Cliente;
 import com.segurApp.modelo.repositorio.ClienteRepositorio;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,20 @@ public class ClienteServicio {
         this.telefono = telefono;
         this.email = email;
         this.password = password;
-        this.rol = "ROL_USER";
+        this.rol = "ROL_CLIENTE";
     }
         
         
     }//clase
     
-    public Cliente guardar(Cliente c){
-        return clienteRepo.save(c);
+    public void guardar(Cliente c){
+        clienteRepo.save(c);
     }
+    
+    public List<Cliente> listarTodos(){
+        return clienteRepo.findAll();
+    }
+
     
     public Optional<ClienteRegistro> buscarPorUsuario(String usuarioNombre){ //otro tipo de collection, retorna lo que sea
         return Optional.ofNullable(clientes.get(usuarioNombre));

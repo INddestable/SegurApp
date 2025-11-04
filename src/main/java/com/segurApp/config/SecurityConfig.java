@@ -22,6 +22,8 @@ public class SecurityConfig {
                                  "/clientes/loginUsuarios",
                                  "/clientes/registroUsuario", // primero esto
                                  "/clientes/ayuda",
+                                 "/clientes/listar", //cambiar a administradores
+                                 "clientes/guardar", //revisar
                                  "/clientes/dashboard",
                                  "/clientes/compraSeguros",
                                  "/clientes/contacto",

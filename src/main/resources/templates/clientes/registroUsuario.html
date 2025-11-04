@@ -19,18 +19,32 @@
     </div>
 
     <h2>Crea tu cuenta</h2>
-    <form id="registroUserForm">
+    <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post" id="registroUserForm">
+      <label>Documento</label>
+      <input type="text" th:field="*{documento}" required/>
+      
       <label>Nombre completo</label>
-      <input type="text" name="nombre" required/>
-
+      <input type="text" th:field="*{nombre}" required/>
+      
+      <label>Tipo Documento</label>
+      <input type="text" th:field="*{tipo_documento}" required/>
+      
+      <label>Edad</label>
+      <input type="text" th:field="*{edad}" required/>
+      
+      <label>Telefono</label>
+      <input type="text" th:field="*{telefono}" required/>
+      
       <label>Correo electrónico</label>
-      <input type="email" name="email" required/>
-
+      <input type="email" th:field="*{email}" required/>
+      
+      <!--
       <label>Usuario</label>
       <input type="text" name="usuario" required/>
-
+      -->
+      
       <label>Contraseña</label>
-      <input type="password" name="password" required/>
+      <input type="password" th:field="*{password}" required/>
 
       <label>Repetir contraseña</label>
       <input type="password" name="password2" required/>

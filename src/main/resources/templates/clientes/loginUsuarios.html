@@ -21,7 +21,7 @@
     <form class="login-form">
       <input type="text" placeholder="Usuario" required />
       <input type="password" placeholder="Contraseña" required />
-      <button type="submit"><a href="dashboard.html">Ingresar</a></button>
+      <button type="submit"><a th:href="@{/clientes/dashboard}">Ingresar</a></button>
       <a th:href="@{../administradores/loginAdministrador}"><button type="button">   Ingreso Administradores   </button></a>
       <a th:href="@{../}"><button type="button" >                                Regresar al Inicio         </button></a>   
     </form>
