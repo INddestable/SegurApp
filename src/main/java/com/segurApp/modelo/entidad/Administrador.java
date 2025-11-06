@@ -23,15 +23,18 @@ public class Administrador {
     
     @OneToMany (mappedBy = "documento_admin")
     private List<PolizaModelo> polizas_Modelos;
+    
+    private String rol;
 
     //constructor con parametros
-    public Administrador(Integer documento_admin, String nombre, String email, String telefono, String password, List<PolizaModelo> polizas_Modelos) {
+    public Administrador(Integer documento_admin, String nombre, String email, String telefono, String password) {
         this.documento_admin = documento_admin;
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
         this.password = password;
-        this.polizas_Modelos = polizas_Modelos;
+        this.polizas_Modelos = null;
+        this.rol = "ROLE_ADMIN";
     }
     
     

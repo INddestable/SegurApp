@@ -23,6 +23,11 @@ public class ClienteControlador {
     public String loginCliente() {
         return "clientes/loginUsuarios"; // templates/clientes/loginUsuarios.html
     }
+    
+    @GetMapping("/clientes/prueba")
+    public String pruebaCliente(){
+        return "clientes/prueba";
+    }
 
     @GetMapping("/clientes/registroUsuario")
     public String registroCliente(Model model) {

@@ -24,6 +24,10 @@ public class SecurityConfig {
                                  "/clientes/ayuda",
                                  "/clientes/listar", //cambiar a administradores
                                  "clientes/guardar", //revisar
+                                 "/clientes/prueba", //ayuda
+                                 "/administradores/prueba", //por favor
+                                 "/administradores/guardar", //mover tambien 
+                                 "/administradores/listar", //mover de acá jajaja
                                  "/clientes/dashboard",
                                  "/clientes/compraSeguros",
                                  "/clientes/contacto",
