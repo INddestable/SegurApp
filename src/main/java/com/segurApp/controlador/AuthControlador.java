@@ -17,11 +17,11 @@ public class AuthControlador {
     public Cliente pruebajaja(){
         return clienteServ.pruebaRegistro();
     }
-    */
+    
     
     @GetMapping("/login")
     public String login(){
         return "login";
     }
-    
+    */
 }

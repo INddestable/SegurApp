@@ -30,10 +30,12 @@ public class AdministradorControlador {
         return "administradores/prueba";
     }
     
+    /*
     @GetMapping("/administradores/loginAdministrador")
     public String loginAdmin() {
         return "administradores/loginAdministrador"; // templates/administradores/loginAdministrador.html
     }
+    */
     
     @GetMapping("/administradores/dashboard")
     public String dashboardAdmi(){

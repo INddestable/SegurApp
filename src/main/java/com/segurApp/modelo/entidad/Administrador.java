@@ -34,7 +34,7 @@ public class Administrador {
         this.telefono = telefono;
         this.password = password;
         this.polizas_Modelos = null;
-        this.rol = "ROLE_ADMIN";
+        this.rol = "ADMIN";
     }
     
     
@@ -92,8 +92,14 @@ public class Administrador {
     public void setPolizas_Modelos(List<PolizaModelo> polizas_Modelos) {
         this.polizas_Modelos = polizas_Modelos;
     }
-    
-    
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
     
     
 }

@@ -37,11 +37,12 @@ public class ClienteServicio {
         this.telefono = telefono;
         this.email = email;
         this.password = password;
-        this.rol = "ROL_CLIENTE";
+        this.rol = "ROLE_USER";
     }
-        
-        
+         
     }//clase
+    
+    
     
     public void guardar(Cliente c){
         clienteRepo.save(c);

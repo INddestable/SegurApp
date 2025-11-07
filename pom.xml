@@ -12,7 +12,7 @@
 	<artifactId>segurApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>segurApp</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Proyecto Gestor de Seguros en SpringBoot</description>
 	<url/>
 	<licenses>
 		<license/>

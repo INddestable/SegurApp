@@ -2,75 +2,81 @@ package com.segurApp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder; // sin encriptar
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http,
-            AuthenticationSuccessHandler successHandler) throws Exception {
+    private final CustomUserDetailsService userDetailsService;
+    private final RoleBasedSuccessHandler successHandler;
 
+    public SecurityConfig(CustomUserDetailsService userDetailsService, RoleBasedSuccessHandler successHandler) {
+        this.userDetailsService = userDetailsService;
+        this.successHandler = successHandler;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/",
-                                 "/index",
-                                 "/index.html",
-                                 "/style.css",
+                // páginas públicas
+                .requestMatchers("/", "/index", 
+                                 "/clientes/registroUsuario",
                                  "/clientes/loginUsuarios",
-                                 "/clientes/registroUsuario", // primero esto
-                                 "/clientes/ayuda",
-                                 "/clientes/listar", //cambiar a administradores
-                                 "clientes/guardar", //revisar
-                                 "/clientes/prueba", //ayuda
-                                 "/administradores/prueba", //por favor
-                                 "/administradores/guardar", //mover tambien 
-                                 "/administradores/listar", //mover de acá jajaja
-                                 "/clientes/dashboard",
-                                 "/clientes/compraSeguros",
-                                 "/clientes/contacto",
-                                 "/clientes/pagosUsuarios",
-                                 "/clientes/polizasUsuarios",
-                                 "/administradores/loginAdministrador",
-                                 "/administradores/dashboard",
-                                 "/administradores/gestionClientes",
-                                 "/administradores/gestionPolizas",
-                                 "/administradores/informes",
-                                 "/administradores/registroAdministrador",
-                                 "/administradores/registroSeguros",
-                                 "/images/**",
-                                 "/webjars/**",
-                                 "/css/**",//Importa todo lo de la carpeta static/css
-                                 "/administrador/**",
-                                 "/cliente/**",
-                                 "/js/**" //Importa todo lo de la carpeta static/js
-                ).permitAll()
-
-                // luego las rutas protegidas
-                .requestMatchers("/clientes/**").hasRole("USER")
+                                 "/css/**", "/js/**", "/images/**","/error/**").permitAll()
+                // zonas privadas
                 .requestMatchers("/administradores/**").hasRole("ADMIN")
-
-                // resto requiere auth
+                .requestMatchers("/clientes/**").hasRole("USER")
+                // todo lo demás necesita login
                 .anyRequest().authenticated()
             )
-
-                
             .formLogin(form -> form
-                .loginPage("/clientes/loginUsuarios")
+                .loginPage("/index") // o tu página principal pública
                 .loginProcessingUrl("/perform_login")
+                .usernameParameter("email")
+                .passwordParameter("password")
                 .successHandler(successHandler)
                 .permitAll()
             )
-                
             .logout(logout -> logout
-                .logoutUrl("/logout")
+                .logoutUrl("/perform_logout")
                 .logoutSuccessUrl("/index")
-                .permitAll()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
             )
-            .csrf(csrf -> csrf.disable());
-
+            .exceptionHandling(exception -> exception
+                .accessDeniedHandler(accessDeniedHandler())
+            );
+            
         return http.build();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    // sin encriptación (solo para desarrollo)
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
+    
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        AccessDeniedHandlerImpl handler = new AccessDeniedHandlerImpl();
+        handler.setErrorPage("/error/403");
+        return handler;
     }
 }

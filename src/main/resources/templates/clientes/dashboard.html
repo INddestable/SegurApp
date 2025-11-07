@@ -18,7 +18,9 @@
     </div>
     <div class="header-right">
       <span>Bienvenido, <strong>Usuario</strong></span>
-      <a href="#">Cerrar sesión</a>
+            <form th:action="@{/perform_logout}" method="post">
+          <input type="submit" value="Cerrar sesión" />
+      </form>
     </div>
   </header>
 
@@ -67,7 +69,9 @@
     <a th:href="@{dashboard.html}">Inicio</a>
     <a th:href="@{ayuda.html}">Ayuda</a>
     <a th:href="@{contacto.html}">Contacto</a>
-    <a th:href="@{logout.html}">Cerrar sesión</a>
+    <form th:action="@{/perform_logout}" method="post">
+        <input type="submit" value="Cerrar sesión" />
+    </form>  
   </footer>
 </body>
 </html>

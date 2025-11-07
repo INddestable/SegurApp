@@ -18,7 +18,7 @@ public class Cliente {
     
     private String nombre; 
     
-    @Column(name = "tipo_ducumento")
+    @Column(name = "tipo_documento")
     private String tipo_documento;
     
     @Column(name = "puntaje_crediticio")
@@ -50,7 +50,7 @@ public class Cliente {
         this.password = password;
         this.polizas = null;
         this.facturas = null;
-        this.rol = "ROLE_CLIENTE";
+        this.rol = "USER";
     }
 
     //constructor vacio (si al fentanilo)
@@ -139,8 +139,14 @@ public class Cliente {
     public void setFacturas(List<Factura> facturas) {
         this.facturas = facturas;
     }
-    
-    
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
     
     
 }

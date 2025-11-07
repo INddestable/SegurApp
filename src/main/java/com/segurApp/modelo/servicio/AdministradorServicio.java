@@ -5,6 +5,9 @@ import com.segurApp.modelo.entidad.Administrador;
 import com.segurApp.modelo.repositorio.AdministradorRepositorio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
