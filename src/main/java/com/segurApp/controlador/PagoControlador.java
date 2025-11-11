@@ -4,7 +4,9 @@
  */
 package com.segurApp.controlador;
 
+
 import org.springframework.stereotype.Controller;
+
 
 /**
  *
@@ -12,5 +14,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class PagoControlador {
+    
+    
     
 }

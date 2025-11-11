@@ -37,34 +37,32 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Tipo</th>
-            <th>Cobertura</th>
-            <th>Costo</th>
-            <th>Duracion</th>
-            <th>Aseguradora</th>
-            <th>Beneficios</th>
-            <th>Exclusiones</th>
-            <th>Condiciones</th>
-            <th>Region</th>
+            <th>Seguro</th>
+            <th>Seguro ID</th>
+            <th>Documento Admin</th>
+            <th>Plan</th>
+            <th>Descripción</th>
+            <th>Condiciones Generales</th>
           </tr>
         </thead>
         <tbody>
-            <tr th:each="seg:${seguros}" >
-                <th scope="row" th:text="${seg.seguro_id}"></th>
-                <td th:text="${seg.tipo}"></td>
-                <td th:text="${seg.cobertura}"></td>
-                <td th:text="${seg.costo}"></td>
-                <td th:text="${seg.duracion}"></td>
-                <td th:text="${seg.aseguradora}"></td>
-                <td th:text="${seg.beneficios}"></td>
-                <td th:text="${seg.exclusiones}"></td>
-                <td th:text="${seg.condiciones}"></td>
-                <td th:text="${seg.region}"></td>
+            <tr th:each="pm : ${modelos}">
+                <th th:scope="row" th:text="*{pm.id_modelos}" ></th>
+                <td th:text="*{pm.seguro.tipo}" ></td>
+                <td th:text="*{pm.seguro.seguro_id}" ></td>
+                <td th:text="*{pm.documento_admin.documento_admin}" ></td>
+                <td th:text="*{pm.nombre_plan}" ></td>
+                <td th:text="*{pm.descripcion}" ></td>
+                <td th:text="*{pm.condiciones_generales}" ></td>
+                
                 <td>
-                    <form th:action="@{'/clientes/compraSeguros/' + ${seg.seguro_id}}" method="post"> 
-                        <button type="submit" class="btnGuardar">Comprar</button>
-                    </form>
-                </td>
+                      <form th:action="@{'/clientes/compraSeguros/' + ${pm.id_modelos}}" method="post">
+                          <button type="submit" class="btnGuardar">
+                              Comprar
+                          </button>
+                      </form>
+                  </td>
+                
             </tr>
         </tbody>
       </table>
@@ -75,22 +73,29 @@
     <section class="carrito-section">
       <h2>Mi carrito</h2>
       <table id="tblCarrito">
-        <thead>
-          <tr>
-            <th>Tipo</th>
-            <th>Plan</th>
-            <th>Costo</th>
-            <th>Cant.</th>
-            <th>Total</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <thead>
+        <tr>
+          <th>ID</th>
+          <th>Seguro</th>
+          <th>Plan</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item : ${carrito}">
+          <td th:text="${item.id_modelos}"></td>
+          <td th:text="${item.seguro.tipo}"></td>
+          <td th:text="${item.nombre_plan}"></td>
+          <td th:text="${item.descripcion}"></td>
+        </tr>
+      </tbody>
+    </table>
       <div class="total-carrito">
         <strong>Total: $<span id="totalCarrito">0</span></strong>
       </div>
+    <form th:action="@{/clientes/pagosUsuarios}" method="post">  
       <button id="btnFinalizarCompra">Finalizar compra</button>
+    </form>
     </section>
   </main>
 
@@ -103,6 +108,6 @@
     </form>  
   </footer>
 
-  <script th:src="@{/js/compraSeguros.js}"></script>
+  
 </body>
 </html>

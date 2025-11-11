@@ -2,22 +2,31 @@
 package com.segurApp.controlador;
 
 import com.segurApp.modelo.entidad.Cliente;
+import com.segurApp.modelo.entidad.PolizaModelo;
 import com.segurApp.modelo.servicio.ClienteServicio;
+import com.segurApp.modelo.servicio.PolizaModeloServicio;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-
+@SessionAttributes("carrito")
 public class ClienteControlador {
     
     @Autowired
     ClienteServicio clienteServ;
+    
+    @Autowired
+    PolizaModeloServicio polizaModeloServicio;
     
     @GetMapping("/clientes/loginUsuarios")
     public String loginCliente() {
@@ -62,10 +71,7 @@ public class ClienteControlador {
         return "clientes/dashboard";
     }
     
-    @GetMapping("/clientes/compraSeguros")
-    public String compraSeguros(){
-        return "clientes/compraSeguros";
-    }
+    
     
     @GetMapping("/clientes/contacto")
     public String contacto(){
@@ -81,4 +87,45 @@ public class ClienteControlador {
     public String polizasUsuarios(){
         return "clientes/polizasUsuarios";
     }
+    
+    @GetMapping("/clientes/compraSeguros")
+    public String mostrarSeguros(Model model) {
+        List<PolizaModelo> modelos = polizaModeloServicio.listarPolizasMod();
+        model.addAttribute("modelos", modelos);
+        return "clientes/compraSeguros";
+    }
+    
+    @ModelAttribute("carrito")
+    public List<PolizaModelo> inicializarCarrito() {
+        return new ArrayList<>();
+    }
+    
+    @PostMapping("/clientes/compraSeguros/{id}")
+    public String agregarAlCarrito(@PathVariable Integer id,
+                                   @ModelAttribute("carrito") List<PolizaModelo> carrito,
+                                   Model model) {
+        PolizaModelo modelo = polizaModeloServicio.buscarPorId(id);
+        if (modelo != null && !carrito.contains(modelo)) {
+            carrito.add(modelo);
+        }
+
+        model.addAttribute("modelos", polizaModeloServicio.listarPolizasMod());
+        model.addAttribute("carrito", carrito);
+        return "clientes/compraSeguros";
+    }
+    
+    @PostMapping("/clientes/pagosUsuarios")
+    public String finalizarCompra(@ModelAttribute("carrito") List<PolizaModelo> carrito,
+                                  SessionStatus status,
+                                  Model model) {
+        
+        model.addAttribute("carritoFinal", carrito);
+
+        
+        status.setComplete();
+
+        return "clientes/pagosUsuarios"; 
+    }
+    
+    
 }

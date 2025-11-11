@@ -56,7 +56,7 @@ public class PolizaClienteControlador {
 
         return "redirect:/clientes/compraSeguros";
     }*/
-    @PostMapping("/clientes/compraSeguros/{seguroId}")
+   /* @PostMapping("/clientes/compraSeguros/{seguroId}")
     public String comprarSeguro(@PathVariable Integer seguroId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();  // 🔹 el username autenticado es el correo
@@ -75,6 +75,6 @@ public class PolizaClienteControlador {
         polizaClienteServicio.crearPolizaCliente(seguroId, cliente);
 
         return "redirect:/clientes/compraSeguros";
-    }
+    }*/
 }
     

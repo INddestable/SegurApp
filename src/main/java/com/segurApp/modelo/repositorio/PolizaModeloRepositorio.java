@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PolizaModeloRepositorio extends JpaRepository<PolizaModelo, Integer> {
-    
+   
 }
