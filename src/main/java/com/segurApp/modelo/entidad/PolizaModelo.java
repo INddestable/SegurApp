@@ -44,14 +44,14 @@ public class PolizaModelo {
     
     //constructor con parametros (revisar polizas cliente)
 
-    public PolizaModelo(Integer id_modelos, Seguro seguro, Administrador documento_admin, String nombre_plan, String descripcion, String condiciones_generales, List<PolizaCliente> polizas_cliente) {
+    public PolizaModelo(Integer id_modelos, Seguro seguro, Administrador documento_admin, String nombre_plan, String descripcion, String condiciones_generales) {
         this.id_modelos = id_modelos;
         this.seguro = seguro;
         this.documento_admin = documento_admin;
         this.nombre_plan = nombre_plan;
         this.descripcion = descripcion;
         this.condiciones_generales = condiciones_generales;
-        this.polizas_cliente = polizas_cliente;
+        this.polizas_cliente = null;
     }
     
     //constructor vacio

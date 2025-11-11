@@ -43,12 +43,12 @@ public class ClienteControlador {
         return "redirect:/clientes/registroUsuario";
     }
     
-    @GetMapping("clientes/listar")
+    /*@GetMapping("clientes/listar")
     public String listarClientes(Model model){
         List<Cliente> listadoClientes = clienteServ.listarTodos();
         model.addAttribute("clientes", listadoClientes);
-        return "/clientes/listar";
-    }
+        return "/administradores/gestionClientes";
+    }*/
 
 
     

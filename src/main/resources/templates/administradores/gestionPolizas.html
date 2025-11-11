@@ -6,7 +6,7 @@
   <title>Pólizas - SeguriPlus</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/administradores/gestionPolizas.css" />
+  <link rel="stylesheet" th:href="@{/css/administradores/gestionPolizas.css}" />
 </head>
 
 <body>
@@ -31,55 +31,34 @@
 
     <section class="form-section">
       <h2 id="tituloForm">Registrar Nueva Póliza</h2>
-      <form id="polizaForm">
-        <input type="hidden" name="id"/>
+      <form th:action="@{/administradores/guardarPolizaMod}" th:object="${polizaModelo}" method="post"  id="polizaForm">
+        <input type="hidden" th:field="*{id_modelos}" />
 
-        <label>Cliente (DNI - Nombre)</label>
-        <input type="text" name="cliente" list="listaClientes" required placeholder="Escriba DNI o apellido"/>
-        <datalist id="listaClientes"></datalist>
-
-        <label>Tipo de Seguro</label>
-        <select name="tipoSeguro" required>
-          <option value="">Seleccione...</option>
-          <option>Vida</option>
-          <option>Automóvil</option>
-          <option>Hogar</option>
-          <option>Salud</option>
+        <label>Seguro</label>
+        <select name="seguro_id" required>
+            <option value="" disabled selected>Seleccione un seguro</option>
+            <option th:each="seg : ${seguros}" 
+              th:value="${seg.seguro_id}" 
+              th:text="${seg.tipo}"></option>
         </select>
-
-        <label>Plan / Producto</label>
-        <input type="text" name="plan" placeholder="Ej: Plan Oro, Básico, etc." required/>
-
-        <label>Fecha de inicio</label>
-        <input type="date" name="inicio" required/>
-
-        <label>Fecha de fin</label>
-        <input type="date" name="fin" required/>
-
-        <label>Prima anual ($)</label>
-        <input type="number" name="prima" step="0.01" min="0" required/>
-
-        <label>Estado actual</label>
-        <select name="estado" required>
-          <option>Vigente</option>
-          <option>En renovación</option>
-          <option>Vencida</option>
-          <option>Cancelada</option>
+        
+        <label>Administrador Responsable</label>
+        <select name="documento_admin" required>
+            <option value="" disabled selected>Seleccione un administrador</option>
+            <option th:each="adm : ${administradores}"
+                    th:value="${adm.documento_admin}"
+                    th:text="${adm.nombre}"></option>
         </select>
-
-
-        <div id="cancelFields" style="display:none;">
-          <label>Motivo de cancelación</label>
-          <select name="motivoCancel">
-            <option value="">N/A</option>
-            <option>Vencimiento</option>
-            <option>Solicitud del cliente</option>
-            <option>Impago</option>
-          </select>
-
-          <label>Detalles / Observaciones</label>
-          <textarea name="obsCancel" rows="2"></textarea>
-        </div>
+        
+        <label>Plan</label>
+        <input type="text" th:field="*{nombre_plan}" placeholder="Ej: Plan Oro, Básico, etc." required/>
+        
+        <label>Descripción</label>
+        <textarea th:field="*{descripcion}" rows="3" placeholder="añade una pequeña descripción"></textarea>
+        
+        <label>Condiciones Generales</label>
+        <textarea th:field="*{condiciones_generales}" rows="3" placeholder="Condiciones"></textarea>
+      
 
         <div class="form-buttons">
           <button type="submit">Guardar Póliza</button>
@@ -117,18 +96,25 @@
       <table id="tblPolizas">
         <thead>
           <tr>
-            <th># Interno</th>
-            <th>Cliente</th>
-            <th>Tipo</th>
+            <th>ID</th>
+            <th>Seguro</th>
+            <th>Documento Admin</th>
             <th>Plan</th>
-            <th>Inicio</th>
-            <th>Fin</th>
-            <th>Prima</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+            <th>Descripción</th>
+            <th>Condiciones Generales</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            <tr th:each="pm : ${polizasModelos}">
+                <th th:scope="row" th:text="*{pm.id_modelos}" ></th>
+                <td th:text="*{pm.seguro}" ></td>
+                <td th:text="*{pm.documento_admin}" ></td>
+                <td th:text="*{pm.nombre_plan}" ></td>
+                <td th:text="*{pm.descripcion}" ></td>
+                <td th:text="*{pm.condiciones_generales}" ></td>
+                
+            </tr>
+        </tbody>
       </table>
     </section>
   </main>
@@ -140,6 +126,6 @@
   </footer>
 
 
-  <script th:src="@{/js/gestionPolizas.js}"></script>
+  <!--<script th:src="@{/js/gestionPolizas.js}"></script>-->
 </body>
 </html>

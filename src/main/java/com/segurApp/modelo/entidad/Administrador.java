@@ -41,6 +41,7 @@ public class Administrador {
     //constructor sin parametros (ojalá se acabe el semestre rapido)
 
     public Administrador() {
+        this.rol = "ADMIN";
     }
     
     //metodos get y set

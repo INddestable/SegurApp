@@ -7,6 +7,7 @@ package com.segurApp.controlador;
 import com.segurApp.modelo.entidad.Administrador;
 import com.segurApp.modelo.entidad.Cliente;
 import com.segurApp.modelo.servicio.AdministradorServicio;
+import com.segurApp.modelo.servicio.ClienteServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class AdministradorControlador {
     
     @Autowired
     AdministradorServicio adminServ;
+    
+    @Autowired
+    ClienteServicio clienteServ;
     
     @GetMapping("/administradores/prueba")
     public String pruebaCliente(){
@@ -43,14 +47,25 @@ public class AdministradorControlador {
     }
     
     @GetMapping("/administradores/gestionClientes")
-    public String gestionClientes(){
+    public String gestionClientes(Model modelo){
+        Cliente cliente = new Cliente();
+        modelo.addAttribute(cliente);
+        List<Cliente> listadoClientes = clienteServ.listarTodos();
+        modelo.addAttribute("clientes", listadoClientes);
         return "administradores/gestionClientes";
     }
     
-    @GetMapping("/administradores/gestionPolizas")
+    @PostMapping("/administradores/editarCliente")
+    public String editarCliente(@ModelAttribute Cliente cliente, Model modelo){
+        modelo.addAttribute("cliente", cliente);
+        clienteServ.actualizarCliente(cliente);
+        return "redirect:/administradores/gestionClientes";
+    }
+    
+    /*@GetMapping("/administradores/gestionPolizas")
     public String gestionPolizas(){
         return "administradores/gestionPolizas";
-    }
+    }*/
     
     @GetMapping("/administradores/informes")
     public String informes(){
@@ -79,8 +94,5 @@ public class AdministradorControlador {
         return "administradores/listar";
     }
     
-    @GetMapping("/administradores/registroSeguros")
-    public String registroSeguros(){
-        return "administradores/registroSeguros";
-    }
+    
 }

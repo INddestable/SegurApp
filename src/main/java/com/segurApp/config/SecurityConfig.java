@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .requestMatchers("/", "/index", 
                                  "/clientes/registroUsuario",
                                  "/clientes/loginUsuarios",
-                                 "/css/**", "/js/**", "/images/**","/error/**").permitAll()
+                                 "/css/**", "/js/**", "/images/**","/error/**","/clientes/guardar").permitAll()
                 // zonas privadas
                 .requestMatchers("/administradores/**").hasRole("ADMIN")
                 .requestMatchers("/clientes/**").hasRole("USER")

@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,11 +31,11 @@ public class Seguro {
     private String region; 
     
     @OneToMany (mappedBy = "seguro")
-    private List<PolizaModelo> polizas_Modelos;
+    private List<PolizaModelo> polizas_Modelos = new ArrayList<>();
     
     //constructo con parametros (revisar polizas modelos)
 
-    public Seguro(Integer seguro_id, String tipo, String cobertura, Float costo, String duracion, String aseguradora, String beneficios, String exclusiones, String condiciones, String region, List<PolizaModelo> polizas_Modelos) {
+    public Seguro(Integer seguro_id, String tipo, String cobertura, Float costo, String duracion, String aseguradora, String beneficios, String exclusiones, String condiciones, String region) {
         this.seguro_id = seguro_id;
         this.tipo = tipo;
         this.cobertura = cobertura;
@@ -45,7 +46,7 @@ public class Seguro {
         this.exclusiones = exclusiones;
         this.condiciones = condiciones;
         this.region = region;
-        this.polizas_Modelos = polizas_Modelos;
+        this.polizas_Modelos = new ArrayList<>();
     }
 
     //constructor vacio

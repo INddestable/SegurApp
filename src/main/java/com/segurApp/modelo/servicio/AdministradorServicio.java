@@ -24,4 +24,7 @@ public class AdministradorServicio {
         return adminRepo.findAll();
     }
     
+    public Administrador buscarPorId(Integer id){
+        return adminRepo.findById(id).orElse(null);
+    }
 }

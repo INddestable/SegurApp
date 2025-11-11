@@ -51,9 +51,25 @@ public class ClienteServicio {
     public List<Cliente> listarTodos(){
         return clienteRepo.findAll();
     }
+    
+    public void actualizarCliente(Cliente c){
+        Optional<Cliente> existente = clienteRepo.findById(c.getDocumento());
+        if (existente.isPresent()){
+            Cliente clienteExistente = existente.get();
+            clienteExistente.setNombre(c.getNombre());
+            clienteExistente.setTipo_documento(c.getTipo_documento());
+            clienteExistente.setPuntaje_crediticio(c.getPuntaje_crediticio());
+            clienteExistente.setEdad(c.getEdad());
+            clienteExistente.setTelefono(c.getTelefono());
+            clienteExistente.setEmail(c.getEmail());
+            clienteExistente.setPassword(c.getPassword());
+            
+            clienteRepo.save(clienteExistente);
+        }
+    }
 
     
-    public Optional<ClienteRegistro> buscarPorUsuario(String usuarioNombre){ //otro tipo de collection, retorna lo que sea
+    /*public Optional<ClienteRegistro> buscarPorUsuario(String usuarioNombre){ //otro tipo de collection, retorna lo que sea
         return Optional.ofNullable(clientes.get(usuarioNombre));
-    }
+    }*/
 }

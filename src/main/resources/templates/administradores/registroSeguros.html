@@ -6,7 +6,7 @@
   <title>Gestión de Seguros - SeguriPlus</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/css/administradores/registroSeguros.css} />
+  <link rel="stylesheet" th:href="@{/css/administradores/registroSeguros.css}" />
 </head>
 
 <body>
@@ -34,41 +34,41 @@
 
     <section class="form-section">
       <h2 id="tituloForm">Registrar Nuevo Seguro</h2>
-      <form id="seguroForm">
-        <input type="hidden" name="id" />
+      <form th:action="@{/administradores/guardarSeguro}" th:object="${seguro}" method="post" id="seguroForm">
+        <input type="hidden" th:field="*{seguro_id}" />
 
         <label>Tipo de seguro</label>
-        <input type="text" name="tipo" list="tiposSeguro" placeholder="Ej: Vida, Auto, Hogar" required />
+        <input type="text" th:field="*{tipo}" list="tiposSeguro" placeholder="Ej: Vida, Auto, Hogar" required />
         <datalist id="tiposSeguro">
           <option>Vida</option>
           <option>Automóvil</option>
           <option>Hogar</option>
           <option>Salud</option>
         </datalist>
+        
+        <label>Cobertura</label>
+        <textarea th:field="*{cobertura}" rows="3" placeholder="Describa la cobertura principal" required></textarea>
+        
+        <label>Costo anual ($)</label>
+        <input type="number" th:field="*{costo}" step="0.01" min="0" required />
+        
+        <label>Duración </label>
+        <input type="text" th:field="*{duracion}" placeholder="Ej: 1 Año, 6 Meses" required />
 
         <label>Aseguradora</label>
-        <input type="text" name="aseguradora" placeholder="Nombre de la aseguradora" required />
-
-        <label>Plan / Producto</label>
-        <input type="text" name="plan" placeholder="Ej: Plan Oro, Básico, etc." required />
-
-        <label>Cobertura</label>
-        <textarea name="cobertura" rows="3" placeholder="Describa la cobertura principal" required></textarea>
-
+        <input type="text" th:field="*{aseguradora}" placeholder="Nombre de la aseguradora" required />
+        
         <label>Beneficios</label>
-        <textarea name="beneficios" rows="3" placeholder="Beneficios adicionales que incluye"></textarea>
-
+        <textarea th:field="*{beneficios}" rows="3" placeholder="Beneficios adicionales que incluye"></textarea>
+        
         <label>Exclusiones</label>
-        <textarea name="exclusiones" rows="3" placeholder="Situaciones o bienes NO cubiertos"></textarea>
-
+        <textarea th:field="*{exclusiones}" rows="3" placeholder="Situaciones o bienes NO cubiertos"></textarea>
+        
         <label>Condiciones</label>
-        <textarea name="condiciones" rows="3" placeholder="Condiciones de contratación y uso"></textarea>
+        <textarea th:field="*{condiciones}" rows="3" placeholder="Condiciones de contratación y uso"></textarea>
 
-        <label>Costo anual ($)</label>
-        <input type="number" name="costo" step="0.01" min="0" required />
-
-        <label>Duración (años)</label>
-        <input type="number" name="duracion" min="1" value="1" required />
+        <label>Region</label>
+        <input type="text" th:field="*{region}" required />
 
         <div class="form-buttons">
           <button type="submit">Guardar Seguro</button>
@@ -99,16 +99,33 @@
       <table id="tblSeguros">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Tipo</th>
-            <th>Aseguradora</th>
-            <th>Plan</th>
             <th>Cobertura</th>
             <th>Costo</th>
-            <th>Duración</th>
-            <th>Acciones</th>
+            <th>Duracion</th>
+            <th>Aseguradora</th>
+            <th>Beneficios</th>
+            <th>Exclusiones</th>
+            <th>Condiciones</th>
+            <th>Region</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            <tr th:each="seg:${seguros}" >
+                <th scope="row" th:text="${seg.seguro_id}"></th>
+                <td th:text="${seg.tipo}"></td>
+                <td th:text="${seg.cobertura}"></td>
+                <td th:text="${seg.costo}"></td>
+                <td th:text="${seg.duracion}"></td>
+                <td th:text="${seg.aseguradora}"></td>
+                <td th:text="${seg.beneficios}"></td>
+                <td th:text="${seg.exclusiones}"></td>
+                <td th:text="${seg.condiciones}"></td>
+                <td th:text="${seg.region}"></td>
+                
+            </tr>
+        </tbody>
       </table>
     </section>
 
@@ -129,6 +146,6 @@
   </footer>
 
 
-   <script th:src="@{/js/registroSeguros.js}"></script> 
+   <!--<script th:src="@{/js/registroSeguros.js}"></script> -->
 </body>
 </html>

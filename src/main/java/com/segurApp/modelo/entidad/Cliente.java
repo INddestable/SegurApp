@@ -56,6 +56,7 @@ public class Cliente {
     //constructor vacio (si al fentanilo)
 
     public Cliente() {
+        this.rol = "USER";
     }
     
     //metodos get y set
