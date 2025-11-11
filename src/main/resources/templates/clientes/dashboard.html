@@ -4,23 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard - SegurApp</title>
-  <link rel="stylesheet" th:href="@{/css/usuarios/compraSeguros.css}" />
+  <link rel="stylesheet" th:href="@{/css/usuarios/dashboard.css}" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body class="dashboard-body">
-  <aside class="sidebar">
-    <nav>
-      <ul>
-        <li><a th:href="@{compraSeguros}">Comprar seguros</a></li>
-        <li><a th:href="@{polizasUsuarios}">Gestionar seguros</a></li>
-        <li><a th:href="@{pagosUsuarios}">Gestión de Pagos</a></li>
-        <li><a th:href="@{contacto}">Contacto</a></li>
-      </ul>
-    </nav>
-  </aside>
-
-  <main class="content">
-    <header style="justify-items: baseline">
+    <header>
         <div class="header-left">
           <svg width="40" height="40" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="40" fill="#005f99"/>
@@ -35,41 +23,23 @@
           </form>
         </div>
     </header>
-    <h3>Gestión de Seguros</h3>
-    <button class="btn-primary"><a th:href="@{seguros}">Nuevo seguro</a></button>
-    <table>
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>Aseguradora</th>
-          <th>Cobertura</th>
-          <th>Costo</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Vida</td>
-          <td>SegurosXYZ</td>
-          <td>Total</td>
-          <td>$500/año</td>
-          <td>
-            <button class="btn-small">Ver</button>
-            <button class="btn-small">Editar</button>
-            <button class="btn-small">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
-
-  <footer class="bottom-nav">
-    <a th:href="@{dashboard}">Inicio</a>
-    <a th:href="@{ayuda}">Ayuda</a>
-    <a th:href="@{contacto}">Contacto</a>
-    <form th:action="@{/perform_logout}" method="post">
-        <input type="submit" value="Cerrar sesión" />
-    </form>  
-  </footer>
-</body>
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <li><a th:href="@{compraSeguros}">Comprar seguros</a></li>
+          <li><a th:href="@{polizasUsuarios}">Gestionar seguros</a></li>
+          <li><a th:href="@{pagosUsuarios}">Gestión de Pagos</a></li>
+          <li><a th:href="@{contacto}">Contacto</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <footer class="bottom-nav">
+      <a th:href="@{dashboard}">Inicio</a>
+      <a th:href="@{ayuda}">Ayuda</a>
+      <a th:href="@{contacto}">Contacto</a>
+      <form th:action="@{/perform_logout}" method="post">
+          <input type="submit" value="Cerrar sesión" />
+      </form>  
+    </footer>
+  </body>
 </html>

@@ -15,7 +15,7 @@
     <nav>
       <ul>
         <li><a th:href="@{dashboard}">Inicio</a></li>
-        <li><a th:href="@{gestionSeguros}">Gestión Seguros</a></li>
+        <li><a th:href="@{registroSeguros}">Gestión Seguros</a></li>
         <li><a th:href="@{gestionClientes}">Gestión Clientes</a></li>
         <li><a th:href="@{gestionPolizas}" class="active">Gestión Pólizas</a></li>
         <li><a th:href="@{informes}">Informes y Estadísticas</a></li>
@@ -139,8 +139,8 @@
 
   <footer class="bottom-nav">
     <a th:href="@{dashboard}">Inicio</a>
-    <a th:href="@{ayuda}">Ayuda</a>
-    <a th:href="@{contacto}">Contacto</a>
+    <a th:href="@{/clientes/ayuda}">Ayuda</a>
+    <a th:href="@{/clientes/contacto}">Contacto</a>
     <a th:href="@{logout}">Cerrar sesión</a>
   </footer>
 
