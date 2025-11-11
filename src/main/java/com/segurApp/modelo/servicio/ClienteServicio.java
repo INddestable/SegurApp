@@ -67,6 +67,10 @@ public class ClienteServicio {
             clienteRepo.save(clienteExistente);
         }
     }
+    
+    public void eliminarCliente(Integer id){
+        clienteRepo.deleteById(id);
+    }
 
     
     /*public Optional<ClienteRegistro> buscarPorUsuario(String usuarioNombre){ //otro tipo de collection, retorna lo que sea

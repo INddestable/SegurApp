@@ -81,24 +81,40 @@
       </div>
 
       <h2>Listado general</h2>
-      <table id="tblClientes">
-        <thead>
-          <tr th:each="cli:${clientes}">
-            <th scope="row" th:text="${cli.documento}"></th>
-            <th>----</th>
-            <th th:text="${cli.nombre}">----</th>
-            <th>----</th>
-            <th th:text="${cli.edad}"></th>
-            <th>----</th>
-            <th th:text="${cli.telefono}"></th>
-            <th>----</th>
-            <th th:text="${cli.email}"></th>
-            <th>----</th>
-            <th th:text="${cli.password}" ></th>
-            
-          </tr>
-        </thead>
-        <tbody></tbody>
+      <table id="tblClientes" border="1">
+          <thead>
+              <tr>
+                  <th>Documento</th>
+                  <th>Nombre</th>
+                  <th>Edad</th>
+                  <th>Teléfono</th>
+                  <th>Email</th>
+                  <th>Password</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <tr th:each="cli : ${clientes}">
+                  <td th:text="${cli.documento}"></td>
+                  <td th:text="${cli.nombre}"></td>
+                  <td th:text="${cli.edad}"></td>
+                  <td th:text="${cli.telefono}"></td>
+                  <td th:text="${cli.email}"></td>
+                  <td th:text="${cli.password}"></td>
+
+                  
+                  <td>
+                      <form th:action="@{/administradores/eliminarClientes}" method="post">
+                          <input type="hidden" name="documento" th:value="${cli.documento}" />
+                          <button type="submit" class="btn btn-danger"
+                                  onclick="return confirm('¿Seguro que deseas eliminar este cliente?');">
+                              Eliminar
+                          </button>
+                      </form>
+                  </td>
+              </tr>
+          </tbody>
       </table>
     </section>
 

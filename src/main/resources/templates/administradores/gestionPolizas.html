@@ -98,6 +98,7 @@
           <tr>
             <th>ID</th>
             <th>Seguro</th>
+            <th>Seguro ID</th>
             <th>Documento Admin</th>
             <th>Plan</th>
             <th>Descripción</th>
@@ -107,11 +108,22 @@
         <tbody>
             <tr th:each="pm : ${polizasModelos}">
                 <th th:scope="row" th:text="*{pm.id_modelos}" ></th>
-                <td th:text="*{pm.seguro}" ></td>
-                <td th:text="*{pm.documento_admin}" ></td>
+                <td th:text="*{pm.seguro.tipo}" ></td>
+                <td th:text="*{pm.seguro.seguro_id}" ></td>
+                <td th:text="*{pm.documento_admin.documento_admin}" ></td>
                 <td th:text="*{pm.nombre_plan}" ></td>
                 <td th:text="*{pm.descripcion}" ></td>
                 <td th:text="*{pm.condiciones_generales}" ></td>
+                
+                <td>
+                      <form th:action="@{/administradores/eliminarPolizas}" method="post">
+                          <input type="hidden" name="poliza_id" th:value="${pm.id_modelos}" />
+                          <button type="submit" class="btn btn-danger"
+                                  onclick="return confirm('¿Seguro que deseas eliminar esta poliza?');">
+                              Eliminar
+                          </button>
+                      </form>
+                  </td>
                 
             </tr>
         </tbody>

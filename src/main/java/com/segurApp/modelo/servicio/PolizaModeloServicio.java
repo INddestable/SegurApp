@@ -21,5 +21,9 @@ public class PolizaModeloServicio {
         return polizaModRep.findAll();
     }
     
+    public void eliminarPoliza(Integer id){
+        polizaModRep.deleteById(id);
+    }
+    
     
 }

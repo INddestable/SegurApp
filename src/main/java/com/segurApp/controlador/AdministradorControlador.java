@@ -8,6 +8,7 @@ import com.segurApp.modelo.entidad.Administrador;
 import com.segurApp.modelo.entidad.Cliente;
 import com.segurApp.modelo.servicio.AdministradorServicio;
 import com.segurApp.modelo.servicio.ClienteServicio;
+import com.segurApp.modelo.servicio.PolizaModeloServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -28,6 +30,9 @@ public class AdministradorControlador {
     
     @Autowired
     ClienteServicio clienteServ;
+    
+    @Autowired
+    PolizaModeloServicio polizaModServ;
     
     @GetMapping("/administradores/prueba")
     public String pruebaCliente(){
@@ -53,6 +58,18 @@ public class AdministradorControlador {
         List<Cliente> listadoClientes = clienteServ.listarTodos();
         modelo.addAttribute("clientes", listadoClientes);
         return "administradores/gestionClientes";
+    }
+    
+    @PostMapping("/administradores/eliminarClientes")
+    public String eliminarCliente(@RequestParam ("documento") Integer documento){
+        clienteServ.eliminarCliente(documento);
+        return "redirect:/administradores/gestionClientes";
+    }
+    
+    @PostMapping("/administradores/eliminarPolizas")
+    public String eliminarPoliza(@RequestParam ("poliza_id") Integer polizaId){
+        polizaModServ.eliminarPoliza(polizaId);
+        return "redirect:/administradores/gestionPolizas";
     }
     
     @PostMapping("/administradores/editarCliente")
