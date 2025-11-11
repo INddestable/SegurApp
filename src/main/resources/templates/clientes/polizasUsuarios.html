@@ -3,31 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mis Pólizas - SeguriPlus</title>
+  <title>Mis Pólizas - SegurApp</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/usuarios/polizasUsuarios.css}"/>
 </head>
 
 <body>
-
   <aside class="sidebar">
     <nav>
-      <ul>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="CompraSeguros.html">Tienda</a></li>
-        <li><a href="misPolizas.html" class="active">Mis pólizas</a></li>
-        <li><a href="pagoPolizas.html">Pagar póliza</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="ayuda.html">Ayuda</a></li>
+      <ul>  
+        <li><a th:href="@{dashboard}">Inicio</a></li>
+        <li><a th:href="@{compraSeguros}">Comprar seguros</a></li>
+        <li><a th:href="@{polizasUsuarios}">Gestionar seguros</a></li>
+        <li><a th:href="@{pagosUsuarios}">Gestión de Pagos</a></li>
+        <li><a th:href="@{contacto}">Contacto</a></li>
       </ul>
     </nav>
   </aside>
 
 
-  <main class="content">
+    <main class="content">
     <header class="top-bar">
       <h1>Mis pólizas contratadas</h1>
-      <a href="dashboard.html">Volver al Dashboard</a>
+        <a th:href="@{dashboard}">Regresar al inicio</a>    
     </header>
 
 
@@ -59,17 +57,35 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            <tr th:each="poliza : ${polizas}">
+                <td th:text="${poliza.id_poliza}"></td>
+                <td th:text="${poliza.poliza_modelo.seguro.tipo}"></td>
+                <td th:text="${poliza.poliza_modelo.nombre_plan}"></td>
+                <td th:text="${poliza.fecha_inicio}"></td>
+                <td th:text="${poliza.fecha_fin}"></td>
+                <td th:text="${poliza.estado}"></td>
+                <td>
+                  <a th:href="@{'/usuarios/detallePoliza/' + ${poliza.id_poliza}}">Ver</a>
+                </td>
+             </tr>
+             
+             <tr th:if="${#lists.isEmpty(polizas)}">
+                <td colspan="7">No tienes pólizas registradas actualmente.</td>
+             </tr>
+        </tbody>
       </table>
     </section>
   </main>
 
 
   <footer class="bottom-nav">
-    <a href="dashboard.html">Inicio</a>
-    <a href="CompraSeguros.html">Tienda</a>
-    <a href="UsuariosPolizas.html" class="active">Mis pólizas</a>
-    <a href="pagoPolizas.html">Pagar</a>
+    <a th:href="@{dashboard}">Inicio</a>
+    <a th:href="@{ayuda}">Ayuda</a>
+    <a th:href="@{contacto}">Contacto</a>
+    <form th:action="@{/perform_logout}" method="post">
+        <input type="submit" value="Cerrar sesión" />
+    </form>  
   </footer>
 
   <script th:src="@{/js/polizasUsuarios.js}"></script>

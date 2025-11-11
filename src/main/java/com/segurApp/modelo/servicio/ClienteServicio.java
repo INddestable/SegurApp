@@ -76,4 +76,15 @@ public class ClienteServicio {
     /*public Optional<ClienteRegistro> buscarPorUsuario(String usuarioNombre){ //otro tipo de collection, retorna lo que sea
         return Optional.ofNullable(clientes.get(usuarioNombre));
     }*/
+    
+    public Cliente buscarPorDocumento(Integer documento) {
+            return clienteRepo.findById(documento).orElse(null);
+    }
+        
+    public Cliente busacarPorCorreo(String email){
+            Cliente c = clienteRepo.findByEmail(email);
+            System.out.println("Buscando cliente por correo: " + email);
+            System.out.println("Resultado: " + (c != null ? c.getNombre() : "NO ENCONTRADO"));
+            return c;
+    }
 }

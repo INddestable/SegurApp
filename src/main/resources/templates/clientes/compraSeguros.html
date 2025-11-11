@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tienda - SeguriPlus</title>
+  <title>Tienda - SegurApp</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/usuarios/compraSeguros.css}" />
 </head>
@@ -12,13 +12,12 @@
 
   <aside class="sidebar">
     <nav>
-      <ul>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="CompraSeguros.html" class="active">Tienda</a></li>
-        <li><a href="UsuariosPolizas.html">Mis pólizas</a></li>
-        <li><a href="pagoPolizas.html">Pagar póliza</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="ayuda.html">Ayuda</a></li>
+      <ul>  
+        <li><a th:href="@{dashboard}">Inicio</a></li>
+        <li><a th:href="@{compraSeguros}">Comprar seguros</a></li>
+        <li><a th:href="@{polizasUsuarios}">Gestionar seguros</a></li>
+        <li><a th:href="@{pagosUsuarios}">Gestión de Pagos</a></li>
+        <li><a th:href="@{contacto}">Contacto</a></li>
       </ul>
     </nav>
   </aside>
@@ -27,13 +26,49 @@
   <main class="content">
     <header class="top-bar">
       <h1>Tienda de Seguros</h1>
-      <a href="dashboard.html">Volver al Dashboard</a>
+      <a th:href="@{dashboard}">Regresar al inicio</a></li>
     </header>
-
 
     <section class="productos-section">
       <h2>Seguros disponibles</h2>
-      <div id="listaProductos" class="productos-grid"></div>
+      
+      <div class="productos-grid">
+        <table id="tblSeguros">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Cobertura</th>
+            <th>Costo</th>
+            <th>Duracion</th>
+            <th>Aseguradora</th>
+            <th>Beneficios</th>
+            <th>Exclusiones</th>
+            <th>Condiciones</th>
+            <th>Region</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr th:each="seg:${seguros}" >
+                <th scope="row" th:text="${seg.seguro_id}"></th>
+                <td th:text="${seg.tipo}"></td>
+                <td th:text="${seg.cobertura}"></td>
+                <td th:text="${seg.costo}"></td>
+                <td th:text="${seg.duracion}"></td>
+                <td th:text="${seg.aseguradora}"></td>
+                <td th:text="${seg.beneficios}"></td>
+                <td th:text="${seg.exclusiones}"></td>
+                <td th:text="${seg.condiciones}"></td>
+                <td th:text="${seg.region}"></td>
+                <td>
+                    <form th:action="@{'/clientes/compraSeguros/' + ${seg.seguro_id}}" method="post"> 
+                        <button type="submit" class="btnGuardar">Comprar</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+      </div>
     </section>
 
 
@@ -59,12 +94,13 @@
     </section>
   </main>
 
-
   <footer class="bottom-nav">
-    <a href="dashboard.html">Inicio</a>
-    <a href="tienda.html" class="active">Tienda</a>
-    <a href="misPolizas.html">Mis pólizas</a>
-    <a href="pagarPoliza.html">Pagar</a>
+    <a th:href="@{dashboard}">Inicio</a>
+    <a th:href="@{ayuda}">Ayuda</a>
+    <a th:href="@{contacto}">Contacto</a>
+    <form th:action="@{/perform_logout}" method="post">
+        <input type="submit" value="Cerrar sesión" />
+    </form>  
   </footer>
 
   <script th:src="@{/js/compraSeguros.js}"></script>

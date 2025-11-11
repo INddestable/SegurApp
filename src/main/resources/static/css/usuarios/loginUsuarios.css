@@ -89,7 +89,7 @@ header {
   gap: 10px;
 }
 
-.header-right a {
+.header-right{
   color: white;
   margin-left: 10px;
   text-decoration: none;

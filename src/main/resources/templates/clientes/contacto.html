@@ -3,21 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contacto - SeguriPlus</title>
+  <title>Contacto - SegurApp</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/usuarios/contacto.css}"/>
 </head>
 
-<body>
   <aside class="sidebar">
     <nav>
-      <ul>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="seguros.html">Seguros</a></li>
-        <li><a href="clientes.html">Clientes</a></li>
-        <li><a href="polizas.html">Pólizas</a></li>
-        <li><a href="pagos.html">Pagos</a></li>
-        <li><a href="informes.html">Informes</a></li>
+      <ul>  
+        <li><a th:href="@{dashboard}">Inicio</a></li>
+        <li><a th:href="@{compraSeguros}">Comprar seguros</a></li>
+        <li><a th:href="@{polizasUsuarios}">Gestionar seguros</a></li>
+        <li><a th:href="@{pagosUsuarios}">Gestión de Pagos</a></li>
+        <li><a th:href="@{contacto}">Contacto</a></li>
       </ul>
     </nav>
   </aside>
@@ -26,7 +24,7 @@
   <main class="content">
     <header class="top-bar">
       <h1>Contacto</h1>
-      <a href="dashboard.html">Volver al Dashboard</a>
+      <a th:href="@{dashboard}">Regresar al inicio</a>
     </header>
 
     <section class="form-section">
@@ -65,10 +63,12 @@
 
 
   <footer class="bottom-nav">
-    <a href="dashboard.html">Inicio</a>
-    <a href="ayuda.html">Ayuda</a>
-    <a href="contacto.html" class="active">Contacto</a>
-    <a href="logout.html">Cerrar sesión</a>
+    <a th:href="@{dashboard}">Inicio</a>
+    <a th:href="@{ayuda}">Ayuda</a>
+    <a th:href="@{contacto}">Contacto</a>
+    <form th:action="@{/perform_logout}" method="post">
+        <input type="submit" value="Cerrar sesión" />
+    </form>  
   </footer>
 
   <script th:src="@{/js/contacto.js}"></script>

@@ -29,10 +29,10 @@ public class Cliente {
     private String email;
     private String password;
     
-    @OneToMany(mappedBy = "cliente_id")
+    @OneToMany(mappedBy = "cliente")
     private List<PolizaCliente> polizas;
-    
-    @OneToMany(mappedBy = "cliente_id")
+
+    @OneToMany(mappedBy = "cliente")
     private List<Factura> facturas;
     
     private String rol;

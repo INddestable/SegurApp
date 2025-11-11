@@ -98,7 +98,7 @@ public class AdministradorControlador {
     
     @PostMapping("/administradores/guardar")
     public String guardarAdmin(@ModelAttribute Administrador administrador, Model model) {
-        System.out.println(">>> Entró al método guardarAdmin()");
+        System.out.println("Entró al método guardarAdmin()");
         model.addAttribute("administrador", administrador);
         adminServ.guardarAdmin(administrador);
         return "redirect:/administradores/loginAdministrador";
