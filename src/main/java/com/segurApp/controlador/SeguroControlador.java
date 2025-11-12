@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -22,11 +23,40 @@ public class SeguroControlador {
     SeguroServicio seguroServ;
     
     @GetMapping("/administradores/registroSeguros")
-    public String registroSeguros(Model modelo){
+    public String registroSeguros(@RequestParam(required = false) String tipo,
+        @RequestParam(required = false) String cobertura,
+        @RequestParam(required = false) Double costo,
+        @RequestParam(required = false) String duracion,
+        @RequestParam(required = false) String aseguradora, Model modelo){
+        
         Seguro seguro = new Seguro();
         modelo.addAttribute(seguro);
-        List<Seguro> listaSeguros = seguroServ.listarSeguros();
+        
+        
+        /*List<Seguro> listaSeguros = seguroServ.listarSeguros();
+        modelo.addAttribute("seguros", listaSeguros);*/
+        
+        List<Seguro> listaSeguros;
+
+        // Si no hay filtros, mostrar todos
+        if ((tipo == null || tipo.isEmpty())
+                && (cobertura == null || cobertura.isEmpty())
+                && costo == null
+                && (duracion == null || duracion.isEmpty())
+                && (aseguradora == null || aseguradora.isEmpty())) {
+            listaSeguros = seguroServ.listarSeguros();
+        } else {
+            // Aplicar filtros personalizados
+            listaSeguros = seguroServ.buscarSeguros(tipo, cobertura, costo, duracion, aseguradora);
+        }
+
         modelo.addAttribute("seguros", listaSeguros);
+        modelo.addAttribute("tipo", tipo);
+        modelo.addAttribute("cobertura", cobertura);
+        modelo.addAttribute("costo", costo);
+        modelo.addAttribute("duracion", duracion);
+        modelo.addAttribute("aseguradora", aseguradora);
+        
         return "administradores/registroSeguros";
     }
     
@@ -34,6 +64,13 @@ public class SeguroControlador {
     public String guardarSeguro(@ModelAttribute Seguro seguro, Model modelo){
         modelo.addAttribute("seguro", seguro);
         seguroServ.guardarSeguro(seguro);
+        return "redirect:/administradores/registroSeguros";
+    }
+    
+    @PostMapping ("/administradores/actualizarSeguro")
+    public String actualizarSeguro(@ModelAttribute Seguro seguro, Model modelo){
+        modelo.addAttribute("seguro", seguro);
+        seguroServ.actualizarSeguro(seguro);
         return "redirect:/administradores/registroSeguros";
     }
     
@@ -50,7 +87,15 @@ public class SeguroControlador {
         } else {
             return " No se encontró el seguro con ID: " + id;
         }
-}
+        
+    }
+    
+    @PostMapping("/administradores/eliminarSeguros")
+    public String eliminarSeguro(@RequestParam ("seguro_id") Integer seguroId){
+        
+        seguroServ.eliminarSeguro(seguroId);
+        return "redirect:/administradores/registroSeguros";
+    }
     
     /*
     

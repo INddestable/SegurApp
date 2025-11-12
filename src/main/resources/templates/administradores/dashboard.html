@@ -35,6 +35,34 @@
     </nav>
   </aside>
 
+    <main class="content">
+    <h3>Gestión de Seguros</h3>
+    <button class="btn-primary"><a href="/seguros.html">Nuevo seguro</a></button>
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Aseguradora</th>
+          <th>Cobertura</th>
+          <th>Costo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Vida</td>
+          <td>SegurosXYZ</td>
+          <td>Total</td>
+          <td>$500/año</td>
+          <td>
+            <button class="btn-small">Ver</button>
+            <button class="btn-small">Editar</button>
+            <button class="btn-small">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
 
   <footer class="bottom-nav">
     <a th:href="@{dashboard}">Inicio</a>

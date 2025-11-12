@@ -22,7 +22,7 @@
     </nav>
   </aside>
 
-  <main class="content">
+<main class="content">
     <header class="top-bar">
       <h1>Gestión de Pólizas</h1>
       <a href="dashboard.html">Volver al Dashboard</a>
@@ -65,6 +65,46 @@
         </div>
       </form>
     </section>
+    
+    <section class="form-section">
+      <h2 id="tituloForm">Actualizar Póliza</h2>
+      <form th:action="@{/administradores/actualizarPM}" th:object="${polizaModelo}" method="post"  id="polizaForm">
+          
+          <label>ID Poliza Modelo</label>  
+        <input type="text" th:field="*{id_modelos}" />
+
+        <label>Seguro</label>
+        <select name="seguro_id" required>
+            <option value="" disabled selected>Seleccione un seguro</option>
+            <option th:each="seg : ${seguros}" 
+              th:value="${seg.seguro_id}" 
+              th:text="${seg.tipo}"></option>
+        </select>
+        
+        <label>Administrador Responsable</label>
+        <select name="documento_admin" required>
+            <option value="" disabled selected>Seleccione un administrador</option>
+            <option th:each="adm : ${administradores}"
+                    th:value="${adm.documento_admin}"
+                    th:text="${adm.nombre}"></option>
+        </select>
+        
+        <label>Plan</label>
+        <input type="text" th:field="*{nombre_plan}" placeholder="Ej: Plan Oro, Básico, etc." required/>
+        
+        <label>Descripción</label>
+        <textarea th:field="*{descripcion}" rows="3" placeholder="añade una pequeña descripción"></textarea>
+        
+        <label>Condiciones Generales</label>
+        <textarea th:field="*{condiciones_generales}" rows="3" placeholder="Condiciones"></textarea>
+      
+
+        <div class="form-buttons">
+          <button type="submit">Actualizar Póliza</button>
+          <button type="button" id="btnCancelEdit" style="display:none;">Cancelar edición</button>
+        </div>
+      </form>
+    </section>
 
 
     <section class="seguimiento-section">
@@ -80,55 +120,54 @@
     </section>
 
 
-    <section class="table-section">
-      <div class="barra-filtros">
-        <input type="text" id="busqueda" placeholder="Buscar por cliente, tipo o plan…"/>
-        <select id="filtroEstado">
-          <option value="">Todos los estados</option>
-          <option>Vigente</option>
-          <option>En renovación</option>
-          <option>Vencida</option>
-          <option>Cancelada</option>
-        </select>
-      </div>
+      <section class="table-section">
+          <h2>Listado de Pólizas Modelo</h2>
 
-      <table id="tblPolizas">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Seguro</th>
-            <th>Seguro ID</th>
-            <th>Documento Admin</th>
-            <th>Plan</th>
-            <th>Descripción</th>
-            <th>Condiciones Generales</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr th:each="pm : ${polizasModelos}">
-                <th th:scope="row" th:text="*{pm.id_modelos}" ></th>
-                <td th:text="*{pm.seguro.tipo}" ></td>
-                <td th:text="*{pm.seguro.seguro_id}" ></td>
-                <td th:text="*{pm.documento_admin.documento_admin}" ></td>
-                <td th:text="*{pm.nombre_plan}" ></td>
-                <td th:text="*{pm.descripcion}" ></td>
-                <td th:text="*{pm.condiciones_generales}" ></td>
-                
-                <td>
-                      <form th:action="@{/administradores/eliminarPolizas}" method="post">
-                          <input type="hidden" name="poliza_id" th:value="${pm.id_modelos}" />
-                          <button type="submit" class="btn btn-danger"
-                                  onclick="return confirm('¿Seguro que deseas eliminar esta poliza?');">
-                              Eliminar
-                          </button>
-                      </form>
-                  </td>
-                
-            </tr>
-        </tbody>
-      </table>
-    </section>
+          <!-- 🔍 Buscador -->
+          <form th:action="@{/administradores/gestionPolizas}" method="get" style="margin-bottom: 20px;">
+              <input type="text" name="nombre_plan" th:value="${nombre_plan}" placeholder="Buscar por nombre del plan" required>
+              <button type="submit" class="btn btn-primary">Buscar</button>
+              <a th:href="@{/administradores/gestionPolizas}" class="btn btn-secondary">Mostrar todo</a>
+          </form>
+
+          <table id="tblPolizas">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Seguro</th>
+                      <th>Seguro ID</th>
+                      <th>Documento Admin</th>
+                      <th>Plan</th>
+                      <th>Descripción</th>
+                      <th>Condiciones Generales</th>
+                      <th>Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr th:each="pm : ${polizasModelos}">
+                      <th scope="row" th:text="${pm.id_modelos}"></th>
+                      <td th:text="${pm.seguro.tipo}"></td>
+                      <td th:text="${pm.seguro.seguro_id}"></td>
+                      <td th:text="${pm.documento_admin.documento_admin}"></td>
+                      <td th:text="${pm.nombre_plan}"></td>
+                      <td th:text="${pm.descripcion}"></td>
+                      <td th:text="${pm.condiciones_generales}"></td>
+
+                      <td>
+                          <form th:action="@{/administradores/eliminarPolizas}" method="post">
+                              <input type="hidden" name="poliza_id" th:value="${pm.id_modelos}" />
+                              <button type="submit" class="btn btn-danger"
+                                      onclick="return confirm('¿Seguro que deseas eliminar esta póliza?');">
+                                  Eliminar
+                              </button>
+                          </form>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </section>
   </main>
+    
   <footer class="bottom-nav">
     <a th:href="@{dashboard}">Inicio</a>
     <a th:href="@{/clientes/ayuda}">Ayuda</a>

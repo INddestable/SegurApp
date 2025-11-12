@@ -31,12 +31,23 @@ public class PolizaModeloControlador {
     
     
     @GetMapping("/administradores/gestionPolizas")
-    public String guardarPolizaMod(Model modelo){
+    public String guardarPolizaMod(@RequestParam (required = false) String nombre_plan, Model modelo){
+        
+        List<PolizaModelo> listaPolizaMod;
+        
         modelo.addAttribute("polizaModelo", new PolizaModelo());
         modelo.addAttribute("seguros", seguroServ.listarSeguros());
         modelo.addAttribute("administradores", adminServ.listarAdmin());
-        List<PolizaModelo> listaPolizaMod = polizaModServ.listarPolizasMod();
+        
+        if(nombre_plan == null || nombre_plan.isEmpty()){
+            listaPolizaMod = polizaModServ.listarPolizasMod();
+        }else{
+            listaPolizaMod = polizaModServ.buscarPorNombrePlan(nombre_plan);
+        }
+        
+        
         modelo.addAttribute("polizasModelos", listaPolizaMod);
+        
         return "administradores/gestionPolizas";
     }
     
@@ -56,6 +67,25 @@ public class PolizaModeloControlador {
         seguroServ.guardarSeguro(seguro);
         
         return "redirect:/administradores/gestionPolizas";
+    }
+    
+    @PostMapping("/administradores/actualizarPM")
+    public String actualizarPolizaModelo(@ModelAttribute PolizaModelo polizaMod, @RequestParam("seguro_id") Integer seguroId, 
+            @RequestParam("documento_admin") Integer adminId){
+        
+        Seguro seguro = seguroServ.buscarPorId(seguroId);
+        Administrador admin = adminServ.buscarPorId(adminId);
+        
+        /*polizaMod.setSeguro(seguro);
+        polizaMod.setDocumento_admin(admin);*/
+        
+        polizaModServ.actualizarPoliza(polizaMod, seguro, admin);
+        
+        seguro.getPolizas_Modelos().add(polizaMod);
+        seguroServ.guardarSeguro(seguro);
+        
+        return "redirect:/administradores/gestionPolizas";
+        
     }
     
 }
