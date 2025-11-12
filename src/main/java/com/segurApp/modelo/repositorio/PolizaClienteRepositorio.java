@@ -22,4 +22,10 @@ public interface PolizaClienteRepositorio extends JpaRepository<PolizaCliente, I
 
     @Query("SELECT COUNT(p) > 0 FROM PolizaCliente p WHERE p.cliente = :cliente AND p.poliza_modelo = :modelo")
     boolean existsByClienteAndPoliza_modelo(@Param("cliente") Cliente cliente, @Param("modelo") PolizaModelo modelo);
+    
+    @Query("SELECT s FROM PolizaCliente s WHERE " +
+           "(:estado IS NULL OR s.estado LIKE %:estado%)")
+    List<PolizaCliente> findByFiltros(
+            @Param("estado") String estado
+    );
 }

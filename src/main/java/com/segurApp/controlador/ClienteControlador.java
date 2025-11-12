@@ -82,10 +82,7 @@ public class ClienteControlador {
         return "clientes/pagosUsuarios";
     }
     
-    @GetMapping("/clientes/polizasUsuarios")
-    public String polizasUsuarios(){
-        return "clientes/polizasUsuarios";
-    }
+    
     
     @GetMapping("/clientes/compraSeguros")
     public String mostrarSeguros(Model model) {

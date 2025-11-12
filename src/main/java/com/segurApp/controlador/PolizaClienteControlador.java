@@ -5,16 +5,13 @@
 package com.segurApp.controlador;
 
 import com.segurApp.modelo.entidad.Cliente;
+import com.segurApp.modelo.entidad.PolizaCliente;
 import com.segurApp.modelo.servicio.ClienteServicio;
 import com.segurApp.modelo.servicio.PolizaClienteServicio;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -43,6 +40,46 @@ public class PolizaClienteControlador {
         model.addAttribute("polizas", polizaClienteServicio.listarPorCliente(cliente));
         return "clientes/polizasUsuarios";
     }
+    
+    @GetMapping("/clientes/polizasUsuarios")
+    public String polizasUsuarios(
+        @RequestParam(required = false) String estado, Model modelo){
+        Cliente cliente = clienteServicio.obtenerClienteActual(); 
+
+
+        List<PolizaCliente> polizasCliente = polizaClienteServicio.listarPorCliente(cliente);
+
+       
+        modelo.addAttribute("cliente", cliente);
+        modelo.addAttribute("polizas", polizasCliente);
+        
+        if ((estado == null || estado.isEmpty())) {
+            polizasCliente = polizaClienteServicio.listarPorCliente(cliente);
+        } else {
+            // Aplicar filtros personalizados
+            polizasCliente = polizaClienteServicio.buscarPolizas(estado);
+        }
+        
+        modelo.addAttribute("estado", estado);
+        return "clientes/polizasUsuarios";
+    }
+    
+    
+    /*@GetMapping("/clientes/misPolizas")
+    public String mostrarMisPolizas(Model model) {
+        
+        Cliente cliente = clienteServicio.obtenerClienteActual(); 
+
+
+        List<PolizaCliente> polizasCliente = polizaClienteServicio.listarPorCliente(cliente);
+
+       
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("polizas", polizasCliente);
+
+     
+        return "clientes/polizasUsuarios";
+}*/
     
     /*@PostMapping("/clientes/compraSeguros/{seguroId}")
     public String comprarSeguro(@PathVariable Integer seguroId) {

@@ -49,7 +49,6 @@
         <thead>
           <tr>
             <th># Poliza</th>
-            <th>Tipo</th>
             <th>Plan</th>
             <th>Inicio</th>
             <th>Fin</th>
@@ -60,13 +59,15 @@
         <tbody>
             <tr th:each="poliza : ${polizas}">
                 <td th:text="${poliza.id_poliza}"></td>
-                <td th:text="${poliza.poliza_modelo.seguro.tipo}"></td>
                 <td th:text="${poliza.poliza_modelo.nombre_plan}"></td>
                 <td th:text="${poliza.fecha_inicio}"></td>
                 <td th:text="${poliza.fecha_fin}"></td>
                 <td th:text="${poliza.estado}"></td>
                 <td>
-                  <a th:href="@{'/usuarios/detallePoliza/' + ${poliza.id_poliza}}">Ver</a>
+                  <form th:action="@{'/misPolizas/enviarAPagos/' + ${poliza.id_poliza}}" method="post">
+                    <input type="hidden" name="documento" th:value="${cliente.documento}" />
+                    <button type="submit" class="btn btn-primary">Enviar a Pagos</button>
+                  </form>
                 </td>
              </tr>
              
@@ -88,6 +89,6 @@
     </form>  
   </footer>
 
-  <script th:src="@{/js/polizasUsuarios.js}"></script>
+  
 </body>
 </html>

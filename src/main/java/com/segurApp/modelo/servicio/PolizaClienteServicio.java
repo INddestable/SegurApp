@@ -5,10 +5,14 @@
 package com.segurApp.modelo.servicio;
 
 import com.segurApp.modelo.entidad.Cliente;
+import com.segurApp.modelo.entidad.Factura;
+import com.segurApp.modelo.entidad.Pago;
 import com.segurApp.modelo.entidad.PolizaCliente;
 import com.segurApp.modelo.entidad.PolizaModelo;
 import com.segurApp.modelo.entidad.Seguro;
 import com.segurApp.modelo.repositorio.ClienteRepositorio;
+import com.segurApp.modelo.repositorio.FacturaRepositorio;
+import com.segurApp.modelo.repositorio.PagoRepositorio;
 import com.segurApp.modelo.repositorio.PolizaClienteRepositorio;
 import com.segurApp.modelo.repositorio.PolizaModeloRepositorio;
 import com.segurApp.modelo.repositorio.SeguroRepositorio;
@@ -35,6 +39,11 @@ public class PolizaClienteServicio {
  @Autowired
  private PolizaModeloRepositorio polizaModRepo;
  
+ @Autowired
+ private PagoRepositorio pagoRepo;
+ 
+ @Autowired
+ private FacturaRepositorio facturaRepo;
  
 
     public PolizaClienteServicio(PolizaClienteRepositorio repo) {
@@ -47,31 +56,11 @@ public class PolizaClienteServicio {
 
     public void guardar(PolizaCliente poliza) {
         repo.save(poliza);
-    }  
+    } 
     
-   /* public void crearPolizaCliente(Integer seguroId, Integer documento){
-        Optional<Seguro> segurId = seguroRepo.findById(seguroId);
-        Optional<Cliente> clienteId = clienteRepo.findById(documento);
-        
-        if(segurId.isPresent() && clienteId.isPresent()){
-            Seguro seguro = segurId.get();
-            Cliente cliente = clienteId.get();
-            System.out.println("Objeto: " +  cliente.getDocumento()  + "/" + cliente.getEmail() + "/" + cliente.getNombre());
-            
-            List<PolizaModelo> polizaMod = seguro.getPolizas_Modelos();
-            
-            for(PolizaModelo modPoliza : polizaMod){
-                PolizaCliente clientePoliza = new PolizaCliente();
-                clientePoliza.setPoliza_modelo(modPoliza);
-                clientePoliza.setCliente(cliente);
-                clientePoliza.setFecha_inicio(LocalDate.now().toString());
-                clientePoliza.setFecha_fin("2026/11/10");
-                clientePoliza.setEstado("Activa");
-                repo.save(clientePoliza);
-                
-            }
-        }
-    }*/
+    public List<PolizaCliente> buscarPolizas(String estado) {
+        return repo.findByFiltros(estado);
+    }
     
     public void crearPolizaCliente(Integer seguroId, Cliente cliente) {
 
@@ -98,7 +87,7 @@ public class PolizaClienteServicio {
                 repo.save(clientePoliza);
                 System.out.println("💾 Póliza guardada para modelo " + modPoliza.getNombre_plan());
             }
-        }
-    } 
+        }}
+     
 
 
