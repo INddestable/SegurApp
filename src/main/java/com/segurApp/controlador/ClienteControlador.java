@@ -1,21 +1,17 @@
-
 package com.segurApp.controlador;
 
 import com.segurApp.modelo.entidad.Cliente;
+import com.segurApp.modelo.entidad.PolizaCliente;
 import com.segurApp.modelo.entidad.PolizaModelo;
 import com.segurApp.modelo.servicio.ClienteServicio;
+import com.segurApp.modelo.servicio.CompraServicio;
 import com.segurApp.modelo.servicio.PolizaModeloServicio;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
@@ -27,6 +23,9 @@ public class ClienteControlador {
     
     @Autowired
     PolizaModeloServicio polizaModeloServicio;
+    
+    @Autowired
+    CompraServicio compraServicio;
     
     @GetMapping("/clientes/loginUsuarios")
     public String loginCliente() {
@@ -90,16 +89,26 @@ public class ClienteControlador {
     
     @GetMapping("/clientes/compraSeguros")
     public String mostrarSeguros(Model model) {
+        Cliente cliente = clienteServ.obtenerClienteActual(); // cliente logueado
+
         List<PolizaModelo> modelos = polizaModeloServicio.listarPolizasMod();
+        List<PolizaCliente> polizasCliente = compraServicio.listarPorCliente(cliente);
+
+        // Filtramos las pólizas que el cliente ya compró
+        modelos.removeIf(m -> polizasCliente.stream()
+            .anyMatch(pc -> pc.getPoliza_modelo().getId_modelos().equals(m.getId_modelos())));
+
         model.addAttribute("modelos", modelos);
         return "clientes/compraSeguros";
     }
-    
+
+    // Inicializar carrito
     @ModelAttribute("carrito")
     public List<PolizaModelo> inicializarCarrito() {
         return new ArrayList<>();
     }
-    
+
+    // Agregar póliza al carrito
     @PostMapping("/clientes/compraSeguros/{id}")
     public String agregarAlCarrito(@PathVariable Integer id,
                                    @ModelAttribute("carrito") List<PolizaModelo> carrito,
@@ -108,24 +117,22 @@ public class ClienteControlador {
         if (modelo != null && !carrito.contains(modelo)) {
             carrito.add(modelo);
         }
-
-        model.addAttribute("modelos", polizaModeloServicio.listarPolizasMod());
-        model.addAttribute("carrito", carrito);
-        return "clientes/compraSeguros";
+        return "redirect:/clientes/compraSeguros";
     }
-    
+
+
+    // Finalizar compra -> crea las pólizas en la BD
     @PostMapping("/clientes/pagosUsuarios")
     public String finalizarCompra(@ModelAttribute("carrito") List<PolizaModelo> carrito,
                                   SessionStatus status,
                                   Model model) {
-        
-        model.addAttribute("carritoFinal", carrito);
 
-        
+        // Obtener el cliente logueado
+        Cliente cliente = clienteServ.obtenerClienteActual(); // <-- debes tener este método (por ejemplo, con Security)
+        compraServicio.finalizarCompra(cliente, carrito);
+
+        model.addAttribute("mensaje", "Compra realizada exitosamente UwU");
         status.setComplete();
-
-        return "clientes/pagosUsuarios"; 
+        return "clientes/pagosUsuarios";
     }
-    
-    
 }

@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Service
 public class ClienteServicio { 
@@ -87,4 +89,11 @@ public class ClienteServicio {
             System.out.println("Resultado: " + (c != null ? c.getNombre() : "NO ENCONTRADO"));
             return c;
     }
+    
+    public Cliente obtenerClienteActual() {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || auth.getName().equals("anonymousUser")) return null;
+    return clienteRepo.findByEmail(auth.getName());
+    }
+
 }
