@@ -101,7 +101,7 @@ public class AdministradorControlador {
         System.out.println("Entró al método guardarAdmin()");
         model.addAttribute("administrador", administrador);
         adminServ.guardarAdmin(administrador);
-        return "redirect:/administradores/loginAdministrador";
+        return "redirect:/administradores/dashboard";
     }
     
     @GetMapping("/administradores/listar")

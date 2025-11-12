@@ -24,6 +24,11 @@
     </nav>
   </header>
 
+  <div class="auth-messages" style="text-align:center; margin-top: 15px;">
+    <div th:if="${param.error}">
+        <h1><p style="color: red; font-weight: bold;">Correo o contraseña incorrectos.</h1></p>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="hero-content">

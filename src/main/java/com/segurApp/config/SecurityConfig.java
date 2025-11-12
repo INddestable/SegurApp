@@ -39,11 +39,12 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/index") // o tu página principal pública
+                .loginPage("/index")
                 .loginProcessingUrl("/perform_login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler(successHandler)
+                .failureUrl("/index?error=true")
                 .permitAll()
             )
             .logout(logout -> logout
