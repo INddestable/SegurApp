@@ -8,9 +8,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 */
 
 :root{
-  --color-principal: #00796b;
-  --color-claro: #b2dfdb;
-  --color-oscuro: #004c40;
+  --color-principal: #005f99;
+  --color-claro: #ffffff;
+  --color-oscuro: #004070;
   --gris-fondo: #f5f5f5;
   --sombra: 0 2px 8px rgba(0,0,0,.15);
 }
@@ -135,7 +135,7 @@ button[type="submit"]:hover{background:var(--color-oscuro);}
   left:0;
   right:0;
   height:50px;
-  background:#00796b;
+  background:#004070;
   display:flex;
   justify-content:space-around;
   align-items:center;
