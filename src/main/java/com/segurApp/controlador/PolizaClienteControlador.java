@@ -65,6 +65,7 @@ public class PolizaClienteControlador {
         }
         
         modelo.addAttribute("estado", estado);
+        modelo.addAttribute("polizas", polizasCliente);
         return "clientes/polizasUsuarios";
     }
     

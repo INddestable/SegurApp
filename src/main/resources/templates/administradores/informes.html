@@ -17,8 +17,9 @@
         <li><a th:href="@{dashboard}">Inicio</a></li>
         <li><a th:href="@{gestionSeguros}">Gestión Seguros</a></li>
         <li><a th:href="@{gestionClientes}">Gestión Clientes</a></li>
-        <li><a th:href="@{gestionPolizas}" class="active">Gestión Pólizas</a></li>
-        <li><a th:href="@{informes}">Informes y Estadísticas</a></li>
+        <li><a th:href="@{gestionPolizas}" >Gestión Pólizas</a></li>
+        <li><a th:href="@{informes}" class="active">Informes y Estadísticas</a></li>
+        <li><a th:href="@{registroAdministrador}">Registrar Administradores</a></li>
       </ul>
     </nav>
   </aside>
@@ -27,7 +28,7 @@
   <main class="content">
     <header class="top-bar">
       <h1>Informes y Estadísticas</h1>
-      <a href="dashboard.html">Volver al Dashboard</a>
+      <a th:href="@{dashboard}">Volver al Dashboard</a>
     </header>
 
     <section class="filtros-section">
@@ -130,9 +131,9 @@
   </main>
   <footer class="bottom-nav">
     <a th:href="@{dashboard}">Inicio</a>
-    <a th:href="@{/clientes/ayuda}">Ayuda</a>
-    <a th:href="@{/clientes/contacto}">Contacto</a>
-    <a th:href="@{logout}">Cerrar sesión</a>
+    <form th:action="@{/perform_logout}" method="post">
+        <input type="submit" value="Cerrar sesión" />
+    </form>
   </footer>
 
   <script th:src="@{/js/informes.js}"></script>

@@ -20,6 +20,7 @@
         <li><a th:href="@{gestionClientes}" class="active">Gestión Clientes</a></li>
         <li><a th:href="@{gestionPolizas}">Gestión Pólizas</a></li>
         <li><a th:href="@{informes}">Informes y Estadísticas</a></li>
+        <li><a th:href="@{registroAdministrador}">Registrar Administradores</a></li>
       </ul>
     </nav>
   </aside>
@@ -27,7 +28,7 @@
 <main class="content">
     <header class="top-bar">
       <h1>Gestión de Clientes</h1>
-      <a href="dashboard.html">Volver al Dashboard</a>
+      <a th:href="@{dashboard}">Volver al Dashboard</a>
     </header>
 
     /*--------------------------------------------------
@@ -50,6 +51,7 @@
           <legend>Historial crediticio</legend>
           <label>Puntaje (300-850)</label>
           <input type="number" th:field="*{puntaje_crediticio}" min="300" max="850" />
+          <legend>Edad</legend>
           <label>Edad</label>
           <input type="number" th:field="*{edad}" required/>
         </fieldset>
@@ -140,9 +142,9 @@
   
   <footer class="bottom-nav">
     <a th:href="@{dashboard}">Inicio</a>
-    <a th:href="@{/clientes/ayuda}">Ayuda</a>
-    <a th:href="@{/clientes/contacto}">Contacto</a>
-    <a th:href="@{logout}">Cerrar sesión</a>
+    <form th:action="@{/perform_logout}" method="post">
+        <input type="submit" value="Cerrar sesión" />
+    </form>
   </footer>
 
   <!--<script th:src="@{/js/gestionClientes.js}"></script>-->

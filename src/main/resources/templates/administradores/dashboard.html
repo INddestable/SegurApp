@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard - SeguriPlus</title>
-  <link rel="stylesheet"  th:href="@{/css/usuarios/dashboard.css}" />
+  <link rel="stylesheet"  th:href="@{/css/administradores/dashboard.css}" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body class="dashboard-body">
@@ -31,43 +31,14 @@
         <li><a th:href="@{gestionClientes}">Gestión de Clientes</a></li>
         <li><a th:href="@{gestionPolizas}">Gestión de Pólizas</a></li>
         <li><a th:href="@{informes}">Informes y Estadísticas</a></li>
+        <li><a th:href="@{registroAdministrador}">Registrar Administradores</a></li>
       </ul>
     </nav>
   </aside>
 
-    <main class="content">
-    <h3>Gestión de Seguros</h3>
-    <button class="btn-primary"><a href="/seguros.html">Nuevo seguro</a></button>
-    <table>
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>Aseguradora</th>
-          <th>Cobertura</th>
-          <th>Costo</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Vida</td>
-          <td>SegurosXYZ</td>
-          <td>Total</td>
-          <td>$500/año</td>
-          <td>
-            <button class="btn-small">Ver</button>
-            <button class="btn-small">Editar</button>
-            <button class="btn-small">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
 
   <footer class="bottom-nav">
     <a th:href="@{dashboard}">Inicio</a>
-    <a th:href="@{/clientes/ayuda}">Ayuda</a>
-    <a th:href="@{/clientes/contacto}">Contacto</a>
     <form th:action="@{/perform_logout}" method="post">
     <input type="submit" value="Cerrar sesión" />
     </form>

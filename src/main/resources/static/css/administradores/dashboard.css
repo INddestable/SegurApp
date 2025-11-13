@@ -3,10 +3,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : 11/11/2025, 6:06:28 p. m.
+    Created on : 12/11/2025, 8:17:08 p. m.
     Author     : Dell
 */
-
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +14,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f4f6f8 ;
+  background-color: #f4f6f8;
   color: #333;
 }
 
@@ -199,3 +198,4 @@ th {
   font-weight:500;
 }
 .bottom-nav a:hover{background:var(--pri-osc);}
+
