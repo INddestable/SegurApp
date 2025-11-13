@@ -79,9 +79,8 @@ public class ClienteControlador {
     }
     
     @GetMapping("/clientes/compraSeguros")
-    public String mostrarSeguros(Model model) {
-        Cliente cliente = clienteServ.obtenerClienteActual(); // cliente logueado
-
+    public String mostrarSeguros(Model model, @ModelAttribute("carrito") List<PolizaModelo> carrito) {
+        Cliente cliente = clienteServ.obtenerClienteActual();
         List<PolizaModelo> modelos = polizaModeloServicio.listarPolizasMod();
         List<PolizaCliente> polizasCliente = compraServicio.listarPorCliente(cliente);
 
@@ -89,7 +88,15 @@ public class ClienteControlador {
         modelos.removeIf(m -> polizasCliente.stream()
             .anyMatch(pc -> pc.getPoliza_modelo().getId_modelos().equals(m.getId_modelos())));
 
+        // ✅ CALCULAR EL TOTAL DEL CARRITO
+        double total = carrito.stream()
+            .mapToDouble(pm -> pm.getSeguro().getCosto())
+            .sum();
+
         model.addAttribute("modelos", modelos);
+        model.addAttribute("carrito", carrito);
+        model.addAttribute("totalCarrito", total); // ✅ Enviamos el total calculado
+
         return "clientes/compraSeguros";
     }
 
@@ -98,6 +105,7 @@ public class ClienteControlador {
         return new ArrayList<>();
     }
 
+    /*
     @PostMapping("/clientes/compraSeguros/{id}")
     public String agregarAlCarrito(@PathVariable Integer id,
                                    @ModelAttribute("carrito") List<PolizaModelo> carrito,
@@ -108,8 +116,34 @@ public class ClienteControlador {
         }
         return "redirect:/clientes/compraSeguros";
     }
+*/
+    
+    @PostMapping("/clientes/compraSeguros/{id}")
+    public String agregarAlCarrito(@PathVariable Integer id,
+                                   @ModelAttribute("carrito") List<PolizaModelo> carrito,
+                                   Model model) {
+        PolizaModelo modelo = polizaModeloServicio.buscarPorId(id);
 
+        // ✅ VALIDACIÓN MEJORADA - Verificar por ID en lugar de contains
+        boolean yaExiste = carrito.stream()
+            .anyMatch(item -> item.getId_modelos().equals(id));
 
+        if (modelo != null && !yaExiste) {
+            carrito.add(modelo);
+        } else if (modelo != null) {
+            // Opcional: agregar un mensaje de que ya está en el carrito
+            model.addAttribute("mensaje", "Este seguro ya está en tu carrito");
+        }
+
+        // Recalcular total
+        double total = carrito.stream()
+            .mapToDouble(pm -> pm.getSeguro().getCosto())
+            .sum();
+        model.addAttribute("totalCarrito", total);
+
+        return "redirect:/clientes/compraSeguros";
+    }
+    
     @PostMapping("/clientes/pagosUsuarios")
     public String finalizarCompra(@ModelAttribute("carrito") List<PolizaModelo> carrito,
                                   SessionStatus status,

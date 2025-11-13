@@ -28,4 +28,6 @@ public interface PolizaClienteRepositorio extends JpaRepository<PolizaCliente, I
     List<PolizaCliente> findByFiltros(
             @Param("estado") String estado
     );
+    
+    
 }

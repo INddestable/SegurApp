@@ -90,9 +90,9 @@
         </tr>
       </tbody>
     </table>
-      <div class="total-carrito">
-        <strong>Total: $<span id="totalCarrito">0</span></strong>
-      </div>
+    <div class="total-carrito">
+        <strong>Total: $<span id="totalCarrito" th:text="${totalCarrito}">0</span></strong>
+    </div>
     <form th:action="@{/clientes/pagosUsuarios}" method="post">  
       <button id="btnFinalizarCompra">Finalizar compra</button>
     </form>
