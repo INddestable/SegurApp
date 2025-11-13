@@ -31,15 +31,12 @@
 
     <section class="filtros-section">
       <label>Estado:
-        <select id="filtroEstado">
-          <option value="">Todos</option>
-          <option>Vigente</option>
-          <option>Vencida</option>
-          <option>En renovación</option>
-          <option>Cancelada</option>
-        </select>
+          <form th:action="@{/clientes/polizasUsuarios}" method="get" class="search-form">
+              <input type="text" name="estado" th:value="${estado}" placeholder="Estado">
+              <button type="submit" class="btn btn-primary">Buscar</button>
+              <a th:href="@{/clientes/polizasUsuarios}" class="btn btn-secondary">Limpiar</a>
+          </form>
       </label>
-      <input type="text" id="filtroTexto" placeholder="Buscar por tipo o aseguradora" />
     </section>
 
 
