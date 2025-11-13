@@ -34,4 +34,6 @@ public interface PolizaClienteRepositorio extends JpaRepository<PolizaCliente, I
     List<PolizaCliente> findByClienteAndEstado(@Param("cliente") Cliente cliente, 
                                               @Param("estado") String estado);
     
+    @Query("SELECT pc FROM PolizaCliente pc WHERE pc.poliza_modelo = :modelo")
+    List<PolizaCliente> findByPolizaModelo(@Param("modelo") PolizaModelo modelo);
 }

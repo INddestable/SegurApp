@@ -45,7 +45,14 @@ public class PolizaClienteServicio {
  @Autowired
  private FacturaRepositorio facturaRepo;
  
+    public List<PolizaCliente> buscarPorPolizaModelo(PolizaModelo modelo) {
+    return repo.findByPolizaModelo(modelo);
+    }
 
+    public void eliminar(Integer idPoliza) {
+        repo.deleteById(idPoliza);
+    }
+ 
     public PolizaClienteServicio(PolizaClienteRepositorio repo) {
         this.repo = repo;
     }

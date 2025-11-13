@@ -1,6 +1,7 @@
 package com.segurApp.modelo.repositorio;
 
 import com.segurApp.modelo.entidad.Pago;
+import com.segurApp.modelo.entidad.PolizaCliente;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +13,7 @@ public interface PagoRepositorio extends JpaRepository<Pago, Integer> {
 
     @Query("SELECT p FROM Pago p WHERE p.poliza.id_poliza = :idPoliza")
     List<Pago> findByPolizaId(@Param("idPoliza") Integer idPoliza);
+    
+    @Query("SELECT p FROM Pago p WHERE p.poliza = :polizaCliente")
+    List<Pago> findByPoliza(@Param("polizaCliente") PolizaCliente polizaCliente);
 }

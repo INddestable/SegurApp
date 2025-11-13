@@ -9,12 +9,14 @@ import com.segurApp.modelo.entidad.Cliente;
 import com.segurApp.modelo.servicio.AdministradorServicio;
 import com.segurApp.modelo.servicio.ClienteServicio;
 import com.segurApp.modelo.servicio.PolizaModeloServicio;
+import com.segurApp.modelo.servicio.SeguroServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,6 +35,9 @@ public class AdministradorControlador {
     
     @Autowired
     PolizaModeloServicio polizaModServ;
+    
+    @Autowired
+    SeguroServicio seguroServicio;
     
     @GetMapping("/administradores/prueba")
     public String pruebaCliente(){
@@ -78,6 +83,16 @@ public class AdministradorControlador {
     public String eliminarCliente(@RequestParam ("documento") Integer documento){
         clienteServ.eliminarCliente(documento);
         return "redirect:/administradores/gestionClientes";
+    }
+    
+    @PostMapping("/administradores/eliminarSeguro/{id}")
+    public String eliminarSeguro(@PathVariable Integer id) {
+        try {
+            seguroServicio.eliminarSeguro(id); // ✅ CAMBIADO: eliminarSeguroCompleto → eliminarSeguro
+            return "redirect:/administradores/gestionSeguros?exito=Seguro+eliminado+correctamente";
+        } catch (Exception e) {
+            return "redirect:/administradores/gestionSeguros?error=Error+al+eliminar+seguro";
+        }
     }
     
     @PostMapping("/administradores/eliminarPolizas")

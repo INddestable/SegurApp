@@ -34,6 +34,14 @@ public class PagoServicio {
         return pagoRepo.save(pago);
     }
 
+    public List<Pago> buscarPorPolizaCliente(PolizaCliente polizaCliente) {
+        return pagoRepo.findByPoliza(polizaCliente);
+    }
+
+    public void eliminar(Integer pagoId) {
+        pagoRepo.deleteById(pagoId);
+    }
+    
     public List<Pago> listarPagos() {
         return pagoRepo.findAll();
     }

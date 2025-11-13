@@ -1,77 +1,135 @@
-
 package com.segurApp.modelo.servicio;
 
+import com.segurApp.modelo.entidad.Pago;
 import com.segurApp.modelo.entidad.PolizaCliente;
 import com.segurApp.modelo.entidad.PolizaModelo;
 import com.segurApp.modelo.entidad.Seguro;
-import com.segurApp.modelo.repositorio.PolizaClienteRepositorio;
-import com.segurApp.modelo.repositorio.PolizaModeloRepositorio;
 import com.segurApp.modelo.repositorio.SeguroRepositorio;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SeguroServicio {
     
     @Autowired
-    SeguroRepositorio seguroRep;
+    private SeguroRepositorio seguroRepo;
     
     @Autowired
-    PolizaModeloRepositorio polizaModRep;
+    private PolizaModeloServicio polizaModeloServicio;
     
     @Autowired
-    PolizaClienteRepositorio polizaClienteRep;
+    private PolizaClienteServicio polizaClienteServicio;
     
-    public void guardarSeguro(Seguro segu){
-        seguroRep.save(segu);
+    @Autowired
+    private PagoServicio pagoServicio;
+    
+    @Autowired
+    private FacturaServicio facturaServicio;
+    
+    @Autowired
+    private DetallePagoServicio detallePagoServicio;
+    
+    public void guardarSeguro(Seguro seguro){
+        seguroRepo.save(seguro);
     }
     
     public List<Seguro> listarSeguros(){
-        return seguroRep.findAll();
+        return seguroRepo.findAll();
     }
     
     public List<Seguro> buscarSeguros(String tipo, String cobertura, Double costo, String duracion, String aseguradora) {
-        return seguroRep.findByFiltros(tipo, cobertura, costo, duracion, aseguradora);
+        return seguroRepo.findByFiltros(tipo, cobertura, costo, duracion, aseguradora);
     }
     
     public Seguro buscarPorId(Integer id){
-        return seguroRep.findById(id).orElse(null);
+        return seguroRepo.findById(id).orElse(null);
     }
     
-    public void eliminarSeguro(Integer id){
-        Seguro seguro = seguroRep.findById(id).orElse(null);
+    // ✅ **ÚNICO MÉTODO DE ELIMINACIÓN - EL QUE SÍ FUNCIONA**
+    @Transactional
+    public void eliminarSeguro(Integer seguroId) {
+        Seguro seguro = seguroRepo.findById(seguroId)
+            .orElseThrow(() -> new RuntimeException("Seguro no encontrado"));
         
-        if(seguro.getPolizas_Modelos() != null){
+        System.out.println("🚀 Iniciando eliminación en cascada para seguro: " + seguroId);
+        
+        // ✅ ORDEN ABSOLUTAMENTE CORRECTO:
+        for (PolizaModelo modelo : seguro.getPolizas_Modelos()) {
             
+            System.out.println("📋 Procesando modelo: " + modelo.getId_modelos());
             
+            // 1. Primero obtener TODAS las polizas_cliente de este modelo
+            List<PolizaCliente> polizasCliente = polizaClienteServicio.buscarPorPolizaModelo(modelo);
+            System.out.println("👥 Encontradas " + polizasCliente.size() + " polizas_cliente");
             
-            List<PolizaModelo> polizasModelos = seguro.getPolizas_Modelos();
-            
-            for( PolizaModelo pm : polizasModelos){
-                if(pm.getPolizas_cliente() !=null){
-                    List<PolizaCliente> polizasClientes = pm.getPolizas_cliente();
-                    for(PolizaCliente pc : polizasClientes){
-                        polizaClienteRep.deleteById(pc.getId_poliza());
+            for (PolizaCliente polizaCliente : polizasCliente) {
+                System.out.println("🎯 Procesando poliza_cliente: " + polizaCliente.getId_poliza());
+                
+                // 2. Obtener TODOS los pagos de esta poliza_cliente
+                List<Pago> pagos = pagoServicio.buscarPorPolizaCliente(polizaCliente);
+                System.out.println("💰 Encontrados " + pagos.size() + " pagos");
+                
+                for (Pago pago : pagos) {
+                    System.out.println("🧾 Procesando pago: " + pago.getPago_id());
+                    
+                    // 3. PRIMERO eliminar detalles_pago relacionados con este pago
+                    try {
+                        detallePagoServicio.eliminarPorPago(pago.getPago_id());
+                        System.out.println("✅ Detalles_pago eliminados para pago: " + pago.getPago_id());
+                    } catch (Exception e) {
+                        System.out.println("ℹ️ No hay detalles_pago o ya fueron eliminados");
                     }
-                }else{
-                    polizaModRep.deleteById(pm.getId_modelos());
+                    
+                    // 4. LUEGO eliminar la factura relacionada (si existe)
+                    if (pago.getFactura() != null) {
+                        try {
+                            facturaServicio.eliminar(pago.getFactura().getFactura_id());
+                            System.out.println("✅ Factura eliminada: " + pago.getFactura().getFactura_id());
+                        } catch (Exception e) {
+                            System.out.println("❌ Error eliminando factura: " + e.getMessage());
+                        }
+                    }
+                    
+                    // 5. FINALMENTE eliminar el pago
+                    try {
+                        pagoServicio.eliminar(pago.getPago_id());
+                        System.out.println("✅ Pago eliminado: " + pago.getPago_id());
+                    } catch (Exception e) {
+                        System.out.println("❌ Error eliminando pago: " + e.getMessage());
+                        throw e;
+                    }
                 }
                 
-                polizaModRep.deleteById(pm.getId_modelos());
+                // 6. AHORA SÍ podemos eliminar la poliza_cliente
+                try {
+                    polizaClienteServicio.eliminar(polizaCliente.getId_poliza());
+                    System.out.println("✅ Poliza_cliente eliminada: " + polizaCliente.getId_poliza());
+                } catch (Exception e) {
+                    System.out.println("❌ Error eliminando poliza_cliente: " + e.getMessage());
+                    throw e;
+                }
             }
             
-            seguroRep.deleteById(id);
-            
-        }else{
-            seguroRep.deleteById(id);
+            // 7. Eliminar el poliza_modelo
+            try {
+                polizaModeloServicio.eliminarPoliza(modelo.getId_modelos());
+                System.out.println("✅ Poliza_modelo eliminada: " + modelo.getId_modelos());
+            } catch (Exception e) {
+                System.out.println("❌ Error eliminando poliza_modelo: " + e.getMessage());
+                throw e;
+            }
         }
         
+        // 8. ÚLTIMO PASO: eliminar el seguro
+        seguroRepo.delete(seguro);
+        System.out.println("🎉 Seguro eliminado exitosamente: " + seguroId);
     }
     
     public void actualizarSeguro(Seguro seguro){
-        Optional<Seguro> existente = seguroRep.findById(seguro.getSeguro_id());
+        Optional<Seguro> existente = seguroRepo.findById(seguro.getSeguro_id());
         
         if(existente.isPresent()){
             Seguro seguroExistente = existente.get();
@@ -86,9 +144,7 @@ public class SeguroServicio {
             seguroExistente.setCondiciones(seguro.getCondiciones());
             seguroExistente.setRegion(seguro.getRegion());
             
-            seguroRep.save(seguroExistente);
+            seguroRepo.save(seguroExistente);
         }
-        
     }
-    
 }

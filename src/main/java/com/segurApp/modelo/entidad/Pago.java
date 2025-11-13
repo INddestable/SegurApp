@@ -30,7 +30,7 @@ public class Pago {
     private Float total;
     
     @ManyToOne
-    @JoinColumn(name = "factura_id", nullable = false)
+    @JoinColumn(name = "factura_id", nullable = true)
     private Factura factura;
     
     @OneToMany(mappedBy = "pago")

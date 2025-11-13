@@ -38,4 +38,8 @@ public class FacturaServicio {
     public Factura buscarPorId(Integer id) {
         return facturaRepo.findById(id).orElse(null);
     }
+    
+    public void eliminar(Integer facturaId) {
+        facturaRepo.deleteById(facturaId);
+    }
 }
