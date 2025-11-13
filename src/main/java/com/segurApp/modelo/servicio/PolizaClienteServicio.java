@@ -58,8 +58,9 @@ public class PolizaClienteServicio {
         repo.save(poliza);
     } 
     
-    public List<PolizaCliente> buscarPolizas(String estado) {
-        return repo.findByFiltros(estado);
+    public List<PolizaCliente> buscarPolizas(String estado, Cliente cliente) {
+        // FILTRAR POR CLIENTE Y ESTADO
+        return repo.findByClienteAndEstado(cliente, estado);
     }
     
     public PolizaCliente buscarPorId(Integer idPoliza) {

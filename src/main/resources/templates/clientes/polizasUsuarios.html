@@ -30,54 +30,67 @@
 
 
     <section class="filtros-section">
-      <label>Estado:
-          <form th:action="@{/clientes/polizasUsuarios}" method="get" class="search-form">
-              <input type="text" name="estado" th:value="${estado}" placeholder="Estado">
-              <button type="submit" class="btn btn-primary">Buscar</button>
-              <a th:href="@{/clientes/polizasUsuarios}" class="btn btn-secondary">Limpiar</a>
-          </form>
-      </label>
+        <h3>Filtrar pólizas</h3>
+        <form th:action="@{/clientes/polizasUsuarios}" method="get" class="filtro-form">
+            <div class="filtro-group">
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado" class="form-select">
+                    <option value="">Todos los estados</option>
+                    <option value="pago pendiente" th:selected="${estado == 'pago pendiente'}">Pago Pendiente</option>
+                    <option value="vigente" th:selected="${estado == 'vigente'}">Vigente</option>
+                    <option value="inactiva" th:selected="${estado == 'inactiva'}">Inactiva</option>
+                    <option value="cancelada" th:selected="${estado == 'cancelada'}">Cancelada</option>
+                </select>
+            </div>
+
+            <div class="filtro-buttons">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <a th:href="@{/clientes/polizasUsuarios}" class="btn btn-secondary">Limpiar</a>
+            </div>
+        </form>
     </section>
 
 
     <section class="table-section">
       <h2>Detalle de mis pólizas</h2>
       <table id="tblMisPolizas">
-        <thead>
-          <tr>
+    <thead>
+        <tr>
             <th># Poliza</th>
             <th>Plan</th>
             <th>Inicio</th>
             <th>Fin</th>
             <th>Estado</th>
             <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr th:each="poliza : ${polizas}">
-                <td th:text="${poliza.id_poliza}"></td>
-                <td th:text="${poliza.poliza_modelo.nombre_plan}"></td>
-                <td th:text="${poliza.fecha_inicio}"></td>
-                <td th:text="${poliza.fecha_fin}"></td>
-                <td th:text="${poliza.estado}"></td>
-                <td>
-                  <form th:if="${poliza.estado == 'pago pendiente'}"
-                        th:action="@{'/misPolizas/enviarAPagos/' + ${poliza.id_poliza}}"
-                        method="post">
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="poliza : ${polizas}">
+            <td th:text="${poliza.id_poliza}"></td>
+            <td th:text="${poliza.poliza_modelo.nombre_plan}"></td>
+            <td th:text="${poliza.fecha_inicio}"></td>
+            <td th:text="${poliza.fecha_fin}"></td>
+            <td th:text="${poliza.estado}"></td>
+            <td>
+                <!-- Usar comillas simples y verificar el texto exacto -->
+                <form th:if="${poliza.estado == 'pago pendiente'}"
+                      th:action="@{'/misPolizas/enviarAPagos/' + ${poliza.id_poliza}}"
+                      method="post">
                     <input type="hidden" name="documento" th:value="${cliente.documento}" />
-                    <button type="submit" class="btn btn-primary">Enviar a Pagos</button>
-                  </form>
+                    <button type="submit" class="btn btn-primary">Ir a Pagar</button>
+                </form>
 
-                  <span th:if="${poliza.estado != 'Pendiente de pago'}">No requiere pago</span>
-                </td>
-
-             </tr>
-             
-             <tr th:if="${#lists.isEmpty(polizas)}">
-                <td colspan="7">No tienes pólizas registradas actualmente.</td>
-             </tr>
-        </tbody>
-      </table>
+                <!-- MOSTRAR "Sin acciones requeridas" para otros estados -->
+                <span th:if="${poliza.estado != 'pago pendiente'}">Sin acciones requeridas</span>
+            </td>
+            
+        </tr>
+        
+        <tr th:if="${#lists.isEmpty(polizas)}">
+            <td colspan="6">No tienes pólizas registradas actualmente.</td>
+        </tr>
+    </tbody>
+</table>
     </section>
   </main>
 

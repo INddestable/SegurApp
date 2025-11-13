@@ -43,29 +43,24 @@ public class PolizaClienteControlador {
         return "clientes/polizasUsuarios";
     }
     
-    
-    
     @GetMapping("/clientes/polizasUsuarios")
     public String polizasUsuarios(
-        @RequestParam(required = false) String estado, Model modelo){
+        @RequestParam(required = false) String estado, 
+        Model modelo) {
+
         Cliente cliente = clienteServicio.obtenerClienteActual(); 
+        List<PolizaCliente> polizasCliente;
 
+        if (estado != null && !estado.isEmpty()) {
+            polizasCliente = polizaClienteServicio.buscarPolizas(estado, cliente);
+        } else {
+            polizasCliente = polizaClienteServicio.listarPorCliente(cliente);
+        }
 
-        List<PolizaCliente> polizasCliente = polizaClienteServicio.listarPorCliente(cliente);
-
-       
         modelo.addAttribute("cliente", cliente);
         modelo.addAttribute("polizas", polizasCliente);
-        
-        if ((estado == null || estado.isEmpty())) {
-            polizasCliente = polizaClienteServicio.listarPorCliente(cliente);
-        } else {
-            // Aplicar filtros personalizados
-            polizasCliente = polizaClienteServicio.buscarPolizas(estado);
-        }
-        
         modelo.addAttribute("estado", estado);
-        modelo.addAttribute("polizas", polizasCliente);
+
         return "clientes/polizasUsuarios";
     }
     
