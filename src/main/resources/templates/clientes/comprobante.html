@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comprobante de Pago - SegurApp</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .comprobante { border: 2px solid #333; padding: 20px; max-width: 600px; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .detalles { margin: 20px 0; }
+        .btn { padding: 10px 20px; margin: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="comprobante">
+        <div class="header">
+            <h1>Comprobante de Pago</h1>
+            <p>SegurApp - Seguros Confiables</p>
+        </div>
+        
+        <div class="detalles">
+            <h3>Detalles del Pago:</h3>
+            <p><strong># Pago:</strong> <span th:text="${pago.pago_id}"></span></p>
+            <p><strong># Póliza:</strong> <span th:text="${pago.poliza.id_poliza}"></span></p>
+            <p><strong>Fecha:</strong> <span th:text="${pago.fecha_pago}"></span></p>
+            <p><strong>Monto:</strong> $<span th:text="${#numbers.formatDecimal(pago.total, 1, 2)}"></span></p>
+            <p><strong>Método:</strong> <span th:text="${factura.metodo_principal}"></span></p>
+            <p><strong>Estado:</strong> <span style="color: green; font-weight: bold;">COMPLETADO</span></p>
+        </div>
+        
+        <div class="actions">
+            <button class="btn" onclick="window.print()">Imprimir Comprobante</button>
+            <a th:href="@{/clientes/gestionPagos}" class="btn">Volver a Pagos</a>
+            <a th:href="@{/clientes/polizasUsuarios}" class="btn">Ver Mis Pólizas</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,48 +15,63 @@
         <li><a th:href="@{dashboard}">Inicio</a></li>
         <li><a th:href="@{compraSeguros}">Comprar seguros</a></li>
         <li><a th:href="@{polizasUsuarios}">Gestionar seguros</a></li>
-        <li><a th:href="@{pagosUsuarios}">Gestión de Pagos</a></li>
+        <li><a th:href="@{/clientes/gestionPagos}">Gestión de Pagos</a></li>
         <li><a th:href="@{contacto}">Contacto</a></li>
       </ul>
     </nav>
   </aside>
 
-
   <main class="content">
     <header class="top-bar">
       <h1>Pagar póliza</h1>
-      <a th:href="@{dashboard}">Regresar al inicio</a>
+      <a th:href="@{/clientes/dashboard}">Regresar al inicio</a>
     </header>
 
+    <!-- Mensajes de éxito/error -->
+    <div th:if="${exito}" class="alert alert-success" th:text="${exito}"></div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
 
     <section class="form-section">
       <h2>Selecciona la póliza a pagar</h2>
-      <form id="pagoForm">
+      <form th:action="@{/clientes/procesarPago}" method="post" id="pagoForm">
+        
+        <!-- ✅ CAMPO HIDDEN PARA POLIZA ID (SOLUCIÓN PROBLEMA 1) -->
+        <input type="hidden" name="polizaId" id="hiddenPolizaId" 
+               th:if="${polizaSeleccionada != null}"
+               th:value="${polizaSeleccionada.id_poliza}" />
+
         <label>Póliza</label>
-        <select name="poliza" id="selPoliza" required>
+        <select name="polizaSelect" id="selPoliza" required 
+                th:disabled="${polizaSeleccionada != null}">
           <option value="">Elija una póliza...</option>
+          <option th:each="poliza : ${polizasPendientes}"
+                  th:value="${poliza.id_poliza}"
+                  th:text="'Póliza #' + ${poliza.id_poliza} + ' - ' + ${poliza.poliza_modelo.nombre_plan}"
+                  th:selected="${polizaSeleccionada != null && polizaSeleccionada.id_poliza == poliza.id_poliza}">
+          </option>
         </select>
 
         <label>Monto a pagar ($)</label>
-        <input type="number" name="monto" id="monto" step="0.01" readonly />
+        <input type="number" name="monto" id="monto" step="0.01" readonly 
+               th:value="${monto != null} ? ${monto} : ''" />
 
         <label>Fecha de pago</label>
-        <input type="date" name="fechaPago" required />
+        <input type="date" name="fechaPago" required 
+               th:value="${fechaHoy}" />
 
         <label>Forma de pago</label>
         <select name="formaPago" required>
-          <option>Tarjeta débito</option>
-          <option>Tarjeta crédito</option>
-          <option>Transferencia</option>
+          <option value="Tarjeta débito">Tarjeta débito</option>
+          <option value="Tarjeta crédito">Tarjeta crédito</option>
+          <option value="Transferencia">Transferencia</option>
         </select>
 
         <button type="submit">Realizar pago</button>
-        <button type="button" id="btnComprobante" disabled>Descargar comprobante</button>
+        <a th:href="@{/clientes/gestionPagos}" class="btn btn-secondary">Cancelar</a>
       </form>
     </section>
 
-
-    <section class="table-section">
+    <section class="table-section" th:if="${historialPagos != null && !historialPagos.empty}">
       <h2>Historial de pagos de la póliza</h2>
       <table id="tblPagosPoliza">
         <thead>
@@ -68,20 +83,96 @@
             <th>Estado</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr th:each="pago : ${historialPagos}">
+            <td th:text="${pago.pago_id}"></td>
+            <td th:text="${pago.fecha_pago}"></td>
+            <td th:text="${pago.factura.metodo_principal}"></td>
+            <td th:text="'$' + ${#numbers.formatDecimal(pago.total, 1, 2)}"></td>
+            <td>Completado</td>
+          </tr>
+        </tbody>
       </table>
     </section>
   </main>
 
   <footer class="bottom-nav">
-    <a th:href="@{dashboard}">Inicio</a>
-    <a th:href="@{ayuda}">Ayuda</a>
-    <a th:href="@{contacto}">Contacto</a>
+    <a th:href="@{/clientes/dashboard}">Inicio</a>
+    <a th:href="@{/clientes/ayuda}">Ayuda</a>
+    <a th:href="@{/clientes/contacto}">Contacto</a>
     <form th:action="@{/perform_logout}" method="post">
         <input type="submit" value="Cerrar sesión" />
     </form>  
   </footer>
 
-  <script th:src="@{/js/pagosUsuarios.js}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectPoliza = document.getElementById('selPoliza');
+        const inputMonto = document.getElementById('monto');
+        const hiddenPolizaId = document.getElementById('hiddenPolizaId');
+        const form = document.getElementById('pagoForm');
+
+        // ✅ SOLUCIÓN PROBLEMA 2: Actualizar monto y polizaId cuando cambia la selección
+        selectPoliza.addEventListener('change', function() {
+            const selectedPolizaId = this.value;
+            
+            if (selectedPolizaId) {
+                // Actualizar el campo hidden con el ID seleccionado
+                if (!hiddenPolizaId) {
+                    // Si no existe el hidden, crearlo dinámicamente
+                    const newHidden = document.createElement('input');
+                    newHidden.type = 'hidden';
+                    newHidden.name = 'polizaId';
+                    newHidden.id = 'hiddenPolizaId';
+                    newHidden.value = selectedPolizaId;
+                    form.appendChild(newHidden);
+                } else {
+                    hiddenPolizaId.value = selectedPolizaId;
+                }
+                
+                // 🔥 SIMULAR OBTENCIÓN DEL MONTO (TEMPORAL)
+                // En producción, esto debería venir de una llamada AJAX al backend
+                const montosSimulados = {
+                    '16': 260000,
+                    '17': 180000,
+                    '18': 320000
+                    // Agrega más IDs según tus pólizas existentes
+                };
+                
+                const monto = montosSimulados[selectedPolizaId] || 200000; // Valor por defecto
+                inputMonto.value = monto;
+                
+            } else {
+                inputMonto.value = '';
+                if (hiddenPolizaId) {
+                    hiddenPolizaId.value = '';
+                }
+            }
+        });
+
+        // Si ya hay una póliza seleccionada al cargar (viene del botón "Enviar a Pagos")
+        if (selectPoliza.value && inputMonto.value === '') {
+            selectPoliza.dispatchEvent(new Event('change'));
+        }
+
+        // ✅ Validar antes de enviar el formulario
+        form.addEventListener('submit', function(e) {
+            const polizaIdValue = hiddenPolizaId ? hiddenPolizaId.value : selectPoliza.value;
+            const montoValue = inputMonto.value;
+            
+            if (!polizaIdValue) {
+                e.preventDefault();
+                alert('Por favor selecciona una póliza');
+                return;
+            }
+            
+            if (!montoValue || montoValue <= 0) {
+                e.preventDefault();
+                alert('Monto no válido');
+                return;
+            }
+        });
+    });
+  </script>
 </body>
 </html>

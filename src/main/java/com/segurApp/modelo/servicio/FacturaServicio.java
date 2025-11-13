@@ -31,6 +31,10 @@ public class FacturaServicio {
         return facturaRepo.save(factura);
     }
 
+    public Factura guardar(Factura factura) {
+        return facturaRepo.save(factura);
+    }
+    
     public Factura buscarPorId(Integer id) {
         return facturaRepo.findById(id).orElse(null);
     }

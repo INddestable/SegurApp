@@ -29,7 +29,7 @@ public class PagoServicio {
         pago.setFecha_pago(LocalDate.now().toString());
         pago.setTotal(total);
         pago.setFactura(factura);
-        pago.setDetalles_pago(new ArrayList<>()); // si tienes detalles opcionales
+        pago.setDetalles_pago(new ArrayList<>());
 
         return pagoRepo.save(pago);
     }
@@ -37,5 +37,8 @@ public class PagoServicio {
     public List<Pago> listarPagos() {
         return pagoRepo.findAll();
     }
-    
+        
+    public List<Pago> listarPagosPorPoliza(Integer polizaId) {
+        return pagoRepo.findByPolizaId(polizaId);
+    }
 }
