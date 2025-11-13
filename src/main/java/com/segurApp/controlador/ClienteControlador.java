@@ -144,7 +144,7 @@ public class ClienteControlador {
         return "redirect:/clientes/compraSeguros";
     }
     
-    @PostMapping("/clientes/pagosUsuarios")
+    @PostMapping("/clientes/polizasUsuarios")
     public String finalizarCompra(@ModelAttribute("carrito") List<PolizaModelo> carrito,
                                   SessionStatus status,
                                   Model model) {
@@ -152,8 +152,14 @@ public class ClienteControlador {
         Cliente cliente = clienteServ.obtenerClienteActual();
         compraServicio.finalizarCompra(cliente, carrito);
 
+        //CARGAR LAS PÓLIZAS ACTUALIZADAS DEL CLIENTE
+        List<PolizaCliente> polizasActualizadas = compraServicio.listarPorCliente(cliente);
+
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("polizas", polizasActualizadas); // NO BORRAR
         model.addAttribute("mensaje", "Compra realizada exitosamente U//w//U");
-        status.setComplete();
+
+        status.setComplete(); // Limpia el carrito
         return "clientes/polizasUsuarios";
     }
 }
