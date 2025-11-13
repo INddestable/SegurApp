@@ -64,11 +64,16 @@
                 <td th:text="${poliza.fecha_fin}"></td>
                 <td th:text="${poliza.estado}"></td>
                 <td>
-                  <form th:action="@{'/misPolizas/enviarAPagos/' + ${poliza.id_poliza}}" method="post">
+                  <form th:if="${poliza.estado == 'pago pendiente'}"
+                        th:action="@{'/misPolizas/enviarAPagos/' + ${poliza.id_poliza}}"
+                        method="post">
                     <input type="hidden" name="documento" th:value="${cliente.documento}" />
                     <button type="submit" class="btn btn-primary">Enviar a Pagos</button>
                   </form>
+
+                  <span th:if="${poliza.estado != 'Pendiente de pago'}">No requiere pago</span>
                 </td>
+
              </tr>
              
              <tr th:if="${#lists.isEmpty(polizas)}">

@@ -75,6 +75,11 @@ public class PolizaCliente {
     public String getRazon_cancelacion() { return razon_cancelacion; }
     public void setRazon_cancelacion(String razon_cancelacion) { this.razon_cancelacion = razon_cancelacion; }
 
+    public Integer getIdPoliza() {
+        return id_poliza;
+    }
+    
+    
     @Override
     public String toString() {
         return "PolizaCliente{" + "fecha_inicio=" + fecha_inicio + ", fecha_fin=" + fecha_fin + '}';

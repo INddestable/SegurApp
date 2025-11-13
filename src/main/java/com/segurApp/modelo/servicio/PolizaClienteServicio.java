@@ -62,6 +62,15 @@ public class PolizaClienteServicio {
         return repo.findByFiltros(estado);
     }
     
+    public PolizaCliente buscarPorId(Integer idPoliza) {
+        return repo.findById(idPoliza).orElse(null);
+    }
+
+    public List<Pago> listarPagosPorPoliza(Integer idPoliza) {
+        return pagoRepo.findByPolizaId(idPoliza);
+    }
+
+    
     public void crearPolizaCliente(Integer seguroId, Cliente cliente) {
 
     Optional<Seguro> seguroOpt = seguroRepo.findById(seguroId);

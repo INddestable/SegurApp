@@ -12,6 +12,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -41,6 +43,8 @@ public class PolizaClienteControlador {
         return "clientes/polizasUsuarios";
     }
     
+    
+    
     @GetMapping("/clientes/polizasUsuarios")
     public String polizasUsuarios(
         @RequestParam(required = false) String estado, Model modelo){
@@ -64,6 +68,30 @@ public class PolizaClienteControlador {
         return "clientes/polizasUsuarios";
     }
     
+    @PostMapping("/misPolizas/enviarAPagos/{idPoliza}")
+    public String enviarAPagos(@PathVariable("idPoliza") Integer idPoliza,
+                               @RequestParam("documento") Integer documento,
+                               Model model) {
+        Cliente cliente = clienteServicio.buscarPorDocumento(documento);
+        if (cliente == null) {
+            return "redirect:/error";
+        }
+
+        PolizaCliente poliza = polizaClienteServicio.buscarPorId(idPoliza);
+        if (poliza == null) {
+            return "redirect:/misPolizas?documento=" + documento;
+        }
+
+        // Cargar la póliza y el cliente para la vista de pagos
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("poliza", poliza);
+
+        // Puedes añadir también el historial de pagos
+        model.addAttribute("pagos", polizaClienteServicio.listarPagosPorPoliza(idPoliza));
+
+        return "clientes/pagosUsuarios";
+    }
+
     
     /*@GetMapping("/clientes/misPolizas")
     public String mostrarMisPolizas(Model model) {

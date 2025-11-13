@@ -29,7 +29,7 @@ public class CompraServicio {
             }
 
             PolizaCliente poliza = new PolizaCliente();
-            poliza.setEstado("vigente");
+            poliza.setEstado("pago pendiente");
             poliza.setFecha_inicio(hoy.toString());
             poliza.setFecha_fin(hoy.plusYears(1).toString());
             poliza.setRazon_cancelacion(null);

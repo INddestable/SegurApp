@@ -58,8 +58,6 @@ public class ClienteControlador {
         return "/administradores/gestionClientes";
     }*/
 
-
-    
     @GetMapping("/clientes/ayuda")
     public String ayuda(){
         return "clientes/ayuda";
@@ -70,8 +68,6 @@ public class ClienteControlador {
         return "clientes/dashboard";
     }
     
-    
-    
     @GetMapping("/clientes/contacto")
     public String contacto(){
         return "clientes/contacto";
@@ -81,8 +77,6 @@ public class ClienteControlador {
     public String pagosUsuarios(){
         return "clientes/pagosUsuarios";
     }
-    
-    
     
     @GetMapping("/clientes/compraSeguros")
     public String mostrarSeguros(Model model) {
@@ -99,13 +93,11 @@ public class ClienteControlador {
         return "clientes/compraSeguros";
     }
 
-    // Inicializar carrito
     @ModelAttribute("carrito")
     public List<PolizaModelo> inicializarCarrito() {
         return new ArrayList<>();
     }
 
-    // Agregar póliza al carrito
     @PostMapping("/clientes/compraSeguros/{id}")
     public String agregarAlCarrito(@PathVariable Integer id,
                                    @ModelAttribute("carrito") List<PolizaModelo> carrito,
@@ -118,18 +110,16 @@ public class ClienteControlador {
     }
 
 
-    // Finalizar compra -> crea las pólizas en la BD
     @PostMapping("/clientes/pagosUsuarios")
     public String finalizarCompra(@ModelAttribute("carrito") List<PolizaModelo> carrito,
                                   SessionStatus status,
                                   Model model) {
 
-        // Obtener el cliente logueado
-        Cliente cliente = clienteServ.obtenerClienteActual(); // <-- debes tener este método (por ejemplo, con Security)
+        Cliente cliente = clienteServ.obtenerClienteActual();
         compraServicio.finalizarCompra(cliente, carrito);
 
-        model.addAttribute("mensaje", "Compra realizada exitosamente UwU");
+        model.addAttribute("mensaje", "Compra realizada exitosamente U//w//U");
         status.setComplete();
-        return "clientes/pagosUsuarios";
+        return "clientes/polizasUsuarios";
     }
 }
