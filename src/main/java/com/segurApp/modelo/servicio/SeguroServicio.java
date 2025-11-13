@@ -1,8 +1,10 @@
 
 package com.segurApp.modelo.servicio;
 
+import com.segurApp.modelo.entidad.PolizaCliente;
 import com.segurApp.modelo.entidad.PolizaModelo;
 import com.segurApp.modelo.entidad.Seguro;
+import com.segurApp.modelo.repositorio.PolizaClienteRepositorio;
 import com.segurApp.modelo.repositorio.PolizaModeloRepositorio;
 import com.segurApp.modelo.repositorio.SeguroRepositorio;
 import java.util.List;
@@ -18,6 +20,9 @@ public class SeguroServicio {
     
     @Autowired
     PolizaModeloRepositorio polizaModRep;
+    
+    @Autowired
+    PolizaClienteRepositorio polizaClienteRep;
     
     public void guardarSeguro(Seguro segu){
         seguroRep.save(segu);
@@ -40,9 +45,20 @@ public class SeguroServicio {
         
         if(seguro.getPolizas_Modelos() != null){
             
+            
+            
             List<PolizaModelo> polizasModelos = seguro.getPolizas_Modelos();
             
             for( PolizaModelo pm : polizasModelos){
+                if(pm.getPolizas_cliente() !=null){
+                    List<PolizaCliente> polizasClientes = pm.getPolizas_cliente();
+                    for(PolizaCliente pc : polizasClientes){
+                        polizaClienteRep.deleteById(pc.getId_poliza());
+                    }
+                }else{
+                    polizaModRep.deleteById(pm.getId_modelos());
+                }
+                
                 polizaModRep.deleteById(pm.getId_modelos());
             }
             

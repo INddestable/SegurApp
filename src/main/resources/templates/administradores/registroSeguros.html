@@ -126,9 +126,9 @@
     </section>
 
 
-      <section class="form-section">
-          <h2 id="tituloForm">Buscar seguros</h2>
-          <form id="segurForm" th:action="@{/administradores/registroSeguros}" method="get" class="search-form">
+      <section class="table-section">
+          <h2>Buscar seguros</h2>
+          <form th:action="@{/administradores/registroSeguros}" method="get" class="search-form">
               <input type="text" name="tipo" th:value="${tipo}" placeholder="Tipo de seguro">
               <input type="text" name="cobertura" th:value="${cobertura}" placeholder="Cobertura">
               <input type="number" step="0.01" name="costo" th:value="${costo}" placeholder="Costo exacto">
@@ -138,9 +138,9 @@
               <button type="submit" class="btn btn-primary">Buscar</button>
               <a th:href="@{/administradores/registroSeguros}" class="btn btn-secondary">Limpiar</a>
           </form>
-      </section>
+      
 
-      <section class="table-section">
+      
           <h2>Listado de seguros y planes</h2>
           <table id="tblSeguros">
               <thead>

@@ -37,6 +37,22 @@ public class ClienteControlador {
         return "clientes/prueba";
     }
 
+    @GetMapping("/clientes/testPolizasClientes/{id}")
+    @ResponseBody
+    public String testPolizasCliente(@PathVariable Integer id) {
+        Cliente cliente = clienteServ.buscarPorDocumento(id);
+        if (cliente != null) {
+            System.out.println("PolizasCliente asociadas al cliente: " + cliente.getNombre());
+            for (PolizaCliente p : cliente.getPolizas()) {
+                System.out.println("- " + p.getEstado());
+            }
+            return "PolizasCliente mostradas en consola para el cliente ID: " + id;
+        } else {
+            return " No se encontró el cliente con ID: " + id;
+        }
+        
+    }
+    
     @GetMapping("/clientes/registroUsuario")
     public String registroCliente(Model model) {
         Cliente cliente = new Cliente();
@@ -88,14 +104,14 @@ public class ClienteControlador {
         modelos.removeIf(m -> polizasCliente.stream()
             .anyMatch(pc -> pc.getPoliza_modelo().getId_modelos().equals(m.getId_modelos())));
 
-        // ✅ CALCULAR EL TOTAL DEL CARRITO
+        // CALCULAR EL TOTAL DEL CARRITO
         double total = carrito.stream()
             .mapToDouble(pm -> pm.getSeguro().getCosto())
             .sum();
 
         model.addAttribute("modelos", modelos);
         model.addAttribute("carrito", carrito);
-        model.addAttribute("totalCarrito", total); // ✅ Enviamos el total calculado
+        model.addAttribute("totalCarrito", total); // Enviamos el total calculado
 
         return "clientes/compraSeguros";
     }

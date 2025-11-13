@@ -31,9 +31,6 @@
       <a th:href="@{dashboard}">Volver al Dashboard</a>
     </header>
 
-    /*--------------------------------------------------
-      1. REGISTRAR / EDITAR
-    --------------------------------------------------*/
     <section class="form-section">
       <h2>Actualizar Cliente</h2>
       <form th:action="@{/administradores/editarCliente}" th:object="${cliente}" method="post" id="clienteForm">
@@ -51,7 +48,6 @@
           <legend>Historial crediticio</legend>
           <label>Puntaje (300-850)</label>
           <input type="number" th:field="*{puntaje_crediticio}" min="300" max="850" />
-          <legend>Edad</legend>
           <label>Edad</label>
           <input type="number" th:field="*{edad}" required/>
         </fieldset>
@@ -73,16 +69,22 @@
       </form>
     </section>
 
-    /*--------------------------------------------------
-      2. ADMINISTRAR → Búsqueda + Tabla + Historial
-    --------------------------------------------------*/
+    
     <section class="table-section">
-      <div class="barra-busqueda">
-        <input type="text" id="buscar" placeholder="Buscar por nombre, DNI o correo…" />
-      </div>
+     <h2>Buscar Clientes</h2>
+          <form th:action="@{/administradores/gestionClientes}" method="get" style="margin-bottom: 20px;">
+              <input type="text" name="nombre" th:value="${nombre}" placeholder="Nombre Cliente">
+              <input type="number" name="documento" th:value="${documento}" placeholder="Documento">
+              <input type="text"  name="email" th:value="${email}" placeholder="Email">
+              
+
+              <button type="submit" class="btn btn-primary">Buscar</button>
+              <a th:href="@{/administradores/gestionClientes}" class="btn btn-secondary">Limpiar</a>
+          </form>
+     
 
       <h2>Listado general</h2>
-      <table id="tblClientes" border="1">
+      <table id="tblSeguros">
           <thead>
               <tr>
                   <th>Documento</th>

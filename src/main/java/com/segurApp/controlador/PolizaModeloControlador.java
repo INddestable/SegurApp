@@ -2,6 +2,7 @@
 package com.segurApp.controlador;
 
 import com.segurApp.modelo.entidad.Administrador;
+import com.segurApp.modelo.entidad.PolizaCliente;
 import com.segurApp.modelo.entidad.PolizaModelo;
 import com.segurApp.modelo.entidad.Seguro;
 import com.segurApp.modelo.servicio.AdministradorServicio;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -88,4 +91,19 @@ public class PolizaModeloControlador {
         
     }
     
+    @GetMapping("/administradores/testPolizasCliente/{id}")
+    @ResponseBody
+    public String testPolizasCliente(@PathVariable Integer id) {
+        PolizaModelo polizaMod = polizaModServ.buscarPorId(id);
+        if (polizaMod != null) {
+            System.out.println("PolizasCliente asociadas a la poliza modelo: " + polizaMod.getNombre_plan());
+            for (PolizaCliente p : polizaMod.getPolizas_cliente()) {
+                System.out.println("- " + p.getEstado());
+            }
+            return "PolizasCliente mostradas en consola para la polizaModelo ID: " + id;
+        } else {
+            return " No se encontró la polizaModelo con ID: " + id;
+        }
+        
+    }
 }

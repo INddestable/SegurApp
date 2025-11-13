@@ -52,11 +52,25 @@ public class AdministradorControlador {
     }
     
     @GetMapping("/administradores/gestionClientes")
-    public String gestionClientes(Model modelo){
+    public String gestionClientes(@RequestParam (required = false) String nombre,
+            @RequestParam (required = false) Integer documento, @RequestParam (required = false) String email, Model modelo){
+        
+        List<Cliente> listadoClientes;
+        
         Cliente cliente = new Cliente();
         modelo.addAttribute(cliente);
-        List<Cliente> listadoClientes = clienteServ.listarTodos();
+        
+        if((nombre == null || nombre.isEmpty()) && documento == null && (email == null || email.isEmpty())){
+            listadoClientes = clienteServ.listarTodos();
+        }else{
+            listadoClientes = clienteServ.buscarCliente(nombre, documento, email);
+        }
+        
+        
         modelo.addAttribute("clientes", listadoClientes);
+        modelo.addAttribute("nombre", nombre);
+        modelo.addAttribute("documento", documento);
+        modelo.addAttribute("email", email);
         return "administradores/gestionClientes";
     }
     

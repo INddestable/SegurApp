@@ -2,7 +2,9 @@
 package com.segurApp.modelo.servicio;
 
 import com.segurApp.modelo.entidad.Cliente;
+import com.segurApp.modelo.entidad.PolizaCliente;
 import com.segurApp.modelo.repositorio.ClienteRepositorio;
+import com.segurApp.modelo.repositorio.PolizaClienteRepositorio;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,9 @@ public class ClienteServicio {
     
     @Autowired
     private ClienteRepositorio clienteRepo;
+    
+    @Autowired
+    PolizaClienteRepositorio polizaClienteRep;
     
     private final Map<String, ClienteRegistro> clientes = new HashMap();
     
@@ -71,8 +76,20 @@ public class ClienteServicio {
     }
     
     public void eliminarCliente(Integer id){
+        Cliente cliente = clienteRepo.findById(id).orElse(null);
+        
+        if(cliente.getPolizas() != null){
+            List<PolizaCliente> polizasClientes = cliente.getPolizas();
+            
+            for(PolizaCliente pc : polizasClientes){
+                polizaClienteRep.deleteById(pc.getId_poliza());
+            }
+            
+        }
+        
         clienteRepo.deleteById(id);
     }
+
 
     
     /*public Optional<ClienteRegistro> buscarPorUsuario(String usuarioNombre){ //otro tipo de collection, retorna lo que sea
@@ -81,6 +98,10 @@ public class ClienteServicio {
     
     public Cliente buscarPorDocumento(Integer documento) {
             return clienteRepo.findById(documento).orElse(null);
+    }
+    
+    public List<Cliente> buscarCliente(String nombre, Integer documento, String email){
+        return clienteRepo.findByFiltros(nombre, documento, email);
     }
         
     public Cliente busacarPorCorreo(String email){
